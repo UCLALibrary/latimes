@@ -15,10 +15,11 @@ def card_list(request):
 	
 def keyword(request):
 	keyword = request.GET.get('keyword')
+	year = request.GET.get('year')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).values()
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).values()
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).values()
+	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).filter(Year__icontains=year).values()
+	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).filter(Year__icontains=year).values()
+	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).filter(Year__icontains=year).values()
 	for q in QUERY:
 		results.append(q)
 	for q in QUERY2:
