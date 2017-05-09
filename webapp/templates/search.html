@@ -1,11 +1,23 @@
 <html>
+<a href='http://127.0.0.1:8000/'><h1>LATimes Search Tool</h1></a>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<div class="container">
 
-<h1>LATimes Search Tool</h1>
+<form name = "search" action = 'http://127.0.0.1:8000/keyword' method= "get" id = 'search' class="form-inline">
+<div class="form-group">
+<input type="text" value='' id = 'keyword' name = 'keyword' placeholder='Keyword'/>
+<input type="submit" />
+</div>
+</form>
+<font size="3" color="blue"><b>Results: </b>{{cards |length }} </font><br><br>
 {% for o in cards %}
 <table>
 {% for key, value in o.items|dictsort:"0.lower"%}
-  <tr>
+<tr>
 <td style="width:85px;">{{key}}:</td><td> {{value|linebreaksbr}}</td></tr>
 {% endfor %}
 </table><br>
