@@ -1,0 +1,14 @@
+<html>
+
+
+<h1>LATimes Search Tool</h1>
+{% for o in cards %}
+<table>
+{% for key, value in o.items|dictsort:"0.lower"%}
+  <tr>
+<td style="width:85px;">{{key}}:</td><td> {{value|linebreaksbr}}</td></tr>
+{% endfor %}
+</table><br>
+{% endfor %}
+
+</html>
