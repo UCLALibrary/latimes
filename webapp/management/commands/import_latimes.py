@@ -1,10 +1,11 @@
 import csv
+import codecs
 
 from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card
 
 
-STD_GR_CSV = 'webapp/data/latimes.csv'
+STD_GR_CSV = 'webapp/data/latimes2.csv'
 
 class Command(BaseCommand):
 
@@ -34,6 +35,5 @@ class Command(BaseCommand):
     	card.Month = row['Month']
     	card.Day = row['Day']
     	card.Year = row['Year']
-    	card.NoDate = row['NoDate']
     	card.PhotoDescription = row['PhotoDescription']
     	card.save()

@@ -1,0 +1,23 @@
+<html>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+
+
+<div class="container">
+
+<b>Keyword Search</b><br>
+<form name = "search" action = 'http://127.0.0.1:8000/advanced' method= "get" id = 'search' class="form-inline">
+<div class="form-group">
+<input type="text" value='' id = 'keyword' name = 'keyword' placeholder='Keyword'/>
+<input type="text" value='' id = 'year' name = 'year' placeholder='Year'/>
+<input type="text" value='' id = 'boxnumb' name = 'boxnumb' placeholder='Box Number'/>
+
+<input type="submit" />
+</div>
+</form>
+
+
+</div>
+{% endblock %}

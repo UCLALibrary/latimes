@@ -25,6 +25,9 @@ class Card(models.Model):
     Month = models.IntegerField(choices=MONTHS)
     Day = models.IntegerField()
     Year = models.IntegerField()
-    NoDate = models.CharField(null=True, max_length=10)
+    #NoDate = models.CharField(null=True, max_length=10)
     PhotoDescription = models.CharField(null=True, max_length=10000)
     
+    @property
+    def date(self):
+    	return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
