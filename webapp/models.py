@@ -30,4 +30,7 @@ class Card(models.Model):
     
     @property
     def date(self):
-    	return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
+        if self.Day == 88:
+            return "No Date Avaliable"
+        else:
+            return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)

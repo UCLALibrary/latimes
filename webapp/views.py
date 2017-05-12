@@ -11,14 +11,14 @@ def homepage(request):
 	
 def box_list(request):
 	box = request.GET.get('box')
-	QUERY = Card.objects.filter(BoxNumber=box).values()
+	QUERY = Card.objects.filter(BoxNumber=box)
 	return render(request, "box.html", {"box":QUERY})
 
 def date_list(request):
 	year = request.GET.get('year')
 	day = request.GET.get('day')
 	month=request.GET.get('month')
-	QUERY = Card.objects.filter(Year=year).filter(Month=month).filter(Day=day).values()
+	QUERY = Card.objects.filter(Year=year).filter(Month=month).filter(Day=day)
 	return render(request, "date.html", {"date":QUERY})
 
 def keyword_home(request):
@@ -30,10 +30,10 @@ def advanced_home(request):
 def keyword(request):
 	keyword = request.GET.get('keyword')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).values()
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).values()
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).values()
-	QUERY4= Card.objects.filter(Negative__icontains=keyword).values()
+	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword)
+	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword)
+	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword)
+	QUERY4= Card.objects.filter(Negative__icontains=keyword)
 	for q in QUERY:
 		results.append(q)
 	for q in QUERY2:
@@ -49,16 +49,20 @@ def advanced(request):
 	year = request.GET.get('year')
 	boxnumb =request.GET.get('boxnumb')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb).values()
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb).values()
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb).values()
-	QUERY4= Card.objects.filter(Negative__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb).values()
+	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
+	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
+	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
+	QUERY4= Card.objects.filter(Negative__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
+	
 	for q in QUERY:
 		results.append(q)
+		print(q)
+	
 	for q in QUERY2:
 		results.append(q)
 	for q in QUERY3:
 		results.append(q)
 	for q in QUERY4:
 		results.append(q)
-	return render(request, "advsearch.html", {"cards": results})
+	print(type(QUERY))
+	return render(request, "advsearch.html", {"cards": QUERY})
