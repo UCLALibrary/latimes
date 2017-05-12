@@ -64,5 +64,4 @@ def advanced(request):
 		results.append(q)
 	for q in QUERY4:
 		results.append(q)
-	print(type(QUERY))
-	return render(request, "advsearch.html", {"cards": QUERY})
+	return render(request, "advsearch.html", {"cards": results})
