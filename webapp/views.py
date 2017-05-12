@@ -30,9 +30,19 @@ def advanced_home(request):
 def keyword(request):
 	keyword = request.GET.get('keyword')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword)
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword)
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword)
+	try:
+		first, last = keyword.split()
+		QUERY2 = Card.objects.filter(SubjectName__icontains=first).filter(SubjectName__icontains=last)
+		print(first, last)
+	except:
+		QUERY2 = Card.objects.filter(SubjectName__icontains=keyword)
+	try:
+		first, last = keyword.split(",")
+		QUERY = Card.objects.filter(SubjectDescription__icontains=first).filter(SubjectDescription__icontains=last)
+		QUERY3 = Card.objects.filter(PhotoDescription__icontains=first).filter(PhotoDescription__icontains=last)
+	except:
+		QUERY = Card.objects.filter(SubjectDescription__icontains=keyword)
+		QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword)
 	QUERY4= Card.objects.filter(Negative__icontains=keyword)
 	for q in QUERY:
 		results.append(q)
@@ -49,9 +59,19 @@ def advanced(request):
 	year = request.GET.get('year')
 	boxnumb =request.GET.get('boxnumb')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	try:
+		first, last = keyword.split()
+		QUERY2 = Card.objects.filter(SubjectName__icontains=first).filter(SubjectName__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
+		print(first, last)
+	except:
+		QUERY2 = Card.objects.filter(SubjectName__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	try:
+		first, last = keyword.split(",")
+		QUERY = Card.objects.filter(SubjectDescription__icontains=first).filter(SubjectDescription__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
+		QUERY3 = Card.objects.filter(PhotoDescription__icontains=first).filter(PhotoDescription__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	except:
+		QUERY = Card.objects.filter(SubjectDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+		QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
 	QUERY4= Card.objects.filter(Negative__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
 	
 	for q in QUERY:
