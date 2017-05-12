@@ -18,7 +18,7 @@ def date_list(request):
 	year = request.GET.get('year')
 	day = request.GET.get('day')
 	month=request.GET.get('month')
-	QUERY = Card.objects.filter(Year=year).filter(Month=month).filter(Day=day)
+	QUERY = Card.objects.filter(Year=year, Month=month, Day=day)
 	return render(request, "date.html", {"date":QUERY})
 
 def keyword_home(request):
@@ -49,10 +49,10 @@ def advanced(request):
 	year = request.GET.get('year')
 	boxnumb =request.GET.get('boxnumb')
 	results = []
-	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
-	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
-	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
-	QUERY4= Card.objects.filter(Negative__icontains=keyword).filter(Year__icontains=year).filter(BoxNumber__icontains=boxnumb)
+	QUERY = Card.objects.filter(SubjectDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	QUERY2 = Card.objects.filter(SubjectName__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
+	QUERY4= Card.objects.filter(Negative__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
 	
 	for q in QUERY:
 		results.append(q)
