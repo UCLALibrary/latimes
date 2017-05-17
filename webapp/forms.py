@@ -18,7 +18,7 @@ class FacetedProductSearchForm(FacetedSearchForm):
                     query += u' OR '
                 else:
                     query = u''
-                query += u'"%s"' % sqs.query.clean(category)
+                query += u'"%s"' % sqs.query.clean(SubjectDescription)
             sqs = sqs.narrow(u'category_exact:%s' % query)
         if self.SubjectName:
             query = None
@@ -27,6 +27,6 @@ class FacetedProductSearchForm(FacetedSearchForm):
                     query += u' OR '
                 else:
                     query = u''
-                query += u'"%s"' % sqs.query.clean(brand)
+                query += u'"%s"' % sqs.query.clean(SubjectName)
             sqs = sqs.narrow(u'brand_exact:%s' % query)
         return sqs

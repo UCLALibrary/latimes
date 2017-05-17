@@ -26,3 +26,19 @@
 [2017-05-16 16:24:34,503][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
 [2017-05-16 16:24:35,101][INFO ][cluster.metadata         ] [Everyman] [latimes] update_mapping [modelresult] (dynamic)
 [2017-05-16 16:33:35,323][INFO ][cluster.metadata         ] [Everyman] [latimes] update_mapping [modelresult]
+[2017-05-16 17:16:58,527][INFO ][node                     ] [Everyman] stopping ...
+[2017-05-16 17:16:58,556][INFO ][node                     ] [Everyman] stopped
+[2017-05-16 17:16:58,556][INFO ][node                     ] [Everyman] closing ...
+[2017-05-16 17:16:58,561][INFO ][node                     ] [Everyman] closed
+[2017-05-16 17:31:21,599][INFO ][node                     ] [Morbius] version[1.7.6], pid[3983], build[c730b59/2016-11-18T15:21:16Z]
+[2017-05-16 17:31:21,599][INFO ][node                     ] [Morbius] initializing ...
+[2017-05-16 17:31:21,658][INFO ][plugins                  ] [Morbius] loaded [], sites []
+[2017-05-16 17:31:21,689][INFO ][env                      ] [Morbius] using [1] data paths, mounts [[/ (/dev/disk0s2)]], net usable_space [101.1gb], net total_space [186.1gb], types [hfs]
+[2017-05-16 17:31:23,736][INFO ][node                     ] [Morbius] initialized
+[2017-05-16 17:31:23,737][INFO ][node                     ] [Morbius] starting ...
+[2017-05-16 17:31:23,850][INFO ][transport                ] [Morbius] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/131.179.23.29:9300]}
+[2017-05-16 17:31:23,882][INFO ][discovery                ] [Morbius] elasticsearch/5EAKM7VmR3WW2Ah40b3u3g
+[2017-05-16 17:31:27,666][INFO ][cluster.service          ] [Morbius] new_master [Morbius][5EAKM7VmR3WW2Ah40b3u3g][mbp-354][inet[/131.179.23.29:9300]], reason: zen-disco-join (elected_as_master)
+[2017-05-16 17:31:27,680][INFO ][http                     ] [Morbius] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/131.179.23.29:9200]}
+[2017-05-16 17:31:27,681][INFO ][node                     ] [Morbius] started
+[2017-05-16 17:31:27,704][INFO ][gateway                  ] [Morbius] recovered [1] indices into cluster_state
