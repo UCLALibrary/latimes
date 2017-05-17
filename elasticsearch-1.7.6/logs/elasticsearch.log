@@ -1,0 +1,28 @@
+[2017-05-16 16:10:40,776][INFO ][node                     ] [Everyman] version[1.7.6], pid[3247], build[c730b59/2016-11-18T15:21:16Z]
+[2017-05-16 16:10:40,777][INFO ][node                     ] [Everyman] initializing ...
+[2017-05-16 16:10:40,849][INFO ][plugins                  ] [Everyman] loaded [], sites []
+[2017-05-16 16:10:40,893][INFO ][env                      ] [Everyman] using [1] data paths, mounts [[/ (/dev/disk0s2)]], net usable_space [101.1gb], net total_space [186.1gb], types [hfs]
+[2017-05-16 16:10:43,248][INFO ][node                     ] [Everyman] initialized
+[2017-05-16 16:10:43,249][INFO ][node                     ] [Everyman] starting ...
+[2017-05-16 16:10:43,348][INFO ][transport                ] [Everyman] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/131.179.23.29:9300]}
+[2017-05-16 16:10:43,372][INFO ][discovery                ] [Everyman] elasticsearch/f-g2s_CZQDmhdZNo12wAxg
+[2017-05-16 16:10:47,151][INFO ][cluster.service          ] [Everyman] new_master [Everyman][f-g2s_CZQDmhdZNo12wAxg][mbp-354][inet[/131.179.23.29:9300]], reason: zen-disco-join (elected_as_master)
+[2017-05-16 16:10:47,166][INFO ][http                     ] [Everyman] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/131.179.23.29:9200]}
+[2017-05-16 16:10:47,166][INFO ][node                     ] [Everyman] started
+[2017-05-16 16:10:47,181][INFO ][gateway                  ] [Everyman] recovered [0] indices into cluster_state
+[2017-05-16 16:11:06,055][INFO ][cluster.metadata         ] [Everyman] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-05-16 16:11:06,381][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
+[2017-05-16 16:20:25,078][INFO ][cluster.metadata         ] [Everyman] [latimes] deleting index
+[2017-05-16 16:20:25,147][INFO ][cluster.metadata         ] [Everyman] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-05-16 16:20:25,231][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
+[2017-05-16 16:21:36,647][INFO ][cluster.metadata         ] [Everyman] [latimes] deleting index
+[2017-05-16 16:21:36,695][INFO ][cluster.metadata         ] [Everyman] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-05-16 16:21:36,785][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
+[2017-05-16 16:23:20,840][INFO ][cluster.metadata         ] [Everyman] [latimes] deleting index
+[2017-05-16 16:23:20,904][INFO ][cluster.metadata         ] [Everyman] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-05-16 16:23:20,987][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
+[2017-05-16 16:24:34,378][INFO ][cluster.metadata         ] [Everyman] [latimes] deleting index
+[2017-05-16 16:24:34,433][INFO ][cluster.metadata         ] [Everyman] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-05-16 16:24:34,503][INFO ][cluster.metadata         ] [Everyman] [latimes] create_mapping [modelresult]
+[2017-05-16 16:24:35,101][INFO ][cluster.metadata         ] [Everyman] [latimes] update_mapping [modelresult] (dynamic)
+[2017-05-16 16:33:35,323][INFO ][cluster.metadata         ] [Everyman] [latimes] update_mapping [modelresult]

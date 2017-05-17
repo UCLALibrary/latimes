@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.contrib.postgres.search import SearchVector
+from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
+from haystack.query import SearchQuerySet
 
 from webapp.models import Card
+from .forms import FacetedProductSearchForm
 
 import json
 
@@ -75,9 +78,7 @@ def advanced(request):
 	QUERY4= Card.objects.filter(Negative__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
 	
 	for q in QUERY:
-		results.append(q)
-		print(q)
-	
+		results.append(q)	
 	for q in QUERY2:
 		results.append(q)
 	for q in QUERY3:
@@ -85,3 +86,11 @@ def advanced(request):
 	for q in QUERY4:
 		results.append(q)
 	return render(request, "advsearch.html", {"cards": results})
+
+class FacetedSearchView(BaseFacetedSearchView):
+
+  form_class = FacetedProductSearchForm
+  facet_fields = ['SubjectDescription', 'SubjectName']
+  template_name = 'search_results.html'
+  paginate_by = 10
+  context_object_name = 'object_list'

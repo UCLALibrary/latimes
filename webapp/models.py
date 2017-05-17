@@ -20,13 +20,13 @@ class Card(models.Model):
     Negative = models.IntegerField()
     Quantity = models.IntegerField()
     BoxNumber = models.IntegerField()
-    SubjectName = models.CharField(null=True, max_length=1000)
-    SubjectDescription = models.CharField(null=True, max_length=10000)
+    SubjectName = models.CharField(null=True, max_length=1000, db_index=True)
+    SubjectDescription = models.CharField(null=True, max_length=10000, db_index=True)
     Month = models.IntegerField(choices=MONTHS)
     Day = models.IntegerField()
     Year = models.IntegerField()
     #NoDate = models.CharField(null=True, max_length=10)
-    PhotoDescription = models.CharField(null=True, max_length=10000)
+    PhotoDescription = models.CharField(null=True, max_length=10000, db_index=True)
     
     @property
     def date(self):
@@ -34,3 +34,6 @@ class Card(models.Model):
             return "No Date Avaliable"
         else:
             return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
+
+    def __str__(self):
+        return self.SubjectName

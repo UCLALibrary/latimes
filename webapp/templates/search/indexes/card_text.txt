@@ -1,0 +1,2 @@
+{{object.SubjectName}}
+{{ object.SubjectDescription|default:"" }}

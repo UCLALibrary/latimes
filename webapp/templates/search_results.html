@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}
+    "{{ query }}" | {{ block.super }}
+{% endblock %}
+
+<head>
+<script type="text/javascript" src="static/js/search_code.js"></script>
+ </head>
+
+{% block content %}
+<div class="container">
+<div class="row">
+	
+{% if  page_obj.object_list %}
+<div class="col-md-3">
+	<h3>Filters</h3>
+        <dl>
+        {% if facets.fields.SubjectDescription %}
+        <dt>Filter by SubjectDescription</dt>
+        {% for SubjectDescription in facets.fields.SubjectDescription %}
+        {% if SubjectDescription.1 != 0 %}
+        <dd>
+        <input class="facet" id="{{SubjectDescription.0|cut:" "}}" type="checkbox" name="SubjectDescription" value="{{ SubjectDescription.0 }}" 
+        data-toggle="toggle" /> {{ SubjectDescription.0 }} ({{ SubjectDescription.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-right" type="submit" value="apply filter" onclick="return onFacetChangeApplied();" />
+        </div>
+        <dl>
+
+        {% if facets.fields.SubjectName %}
+        <dt>Filter by SubjectName</dt>
+        {% for SubjectName in facets.fields.SubjectName %}
+        {% if SubjectName.1 != 0 %}
+        <dd>
+        <input class="facet" id="{{SubjectName.0|cut:" "}}" type="checkbox" name="SubjectName" value="{{ SubjectName.0 }}" /> {{ SubjectName.0 }} ({{ SubjectName.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-right" type="submit" value="apply filter" onclick="return onFacetChangeApplied();" />
+	
+        </div>
+    </div>
+{% endif %}
+	<div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                      Search result for: <label> {{query}} </label>
+               </div>
+               <div class="col-md-6 col-xs-6 align-right">
+               
+                   Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
+                    {{ page_obj.paginator.count }}
+                    results on page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+               </div>
+            </div>    
+            <div>
+	    {% if  page_obj.object_list %}
+                <ol class="row top20">
+                
+                    {% for result in page_obj.object_list %}
+                        
+                        <div>
+		   <a href="{{ result.object.get_absolute_url }}">
+		      <h3>{{result.object.title}}</h3>
+			            <img src="{{ result.object.image.url }}" class="img-responsive">
+		   </a>
+            <table>
+<tr>
+<td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
+<td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>
+<td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>
+<td style="width:185px;">Box Number:</td><td><a href="http://127.0.0.1:8000/box?box={{result.object.BoxNumber}}">{{result.object.BoxNumber}}</td></tr>
+<td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
+<td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>
+<td style="width:185px;">Date:</td><td><a href="http://127.0.0.1:8000/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>
+
+</table><br>
+		    </div>
+                    {% endfor %}
+                </ol>
+            </div>
+		    {% if is_paginated %}
+		      <ul class="pagination pull-right">
+		        {% if page_obj.has_previous %}
+		          <li><a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+		        {% else %}
+		          <li class="disabled"><span>&laquo;</span></li>
+		        {% endif %}
+		        {% for i in paginator.page_range %}
+		          {% if page_obj.number == i %}
+		            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+		          {% else %}
+		            <li><a href="?q={{ query }}&page={{ i }}">{{ i }}</a></li>
+		          {% endif %}
+		        {% endfor %}
+		        {% if page_obj.has_next %}
+		          <li><a href="?q={{ query }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+		        {% else %}
+		          <li class="disabled"><span>&raquo;</span></li>
+		        {% endif %}
+		      </ul>
+		    {% endif %}
+        {% else %}
+	    <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>
+	{% endif %}
+	</div>
+</div>
+</div>
+
+    
+{% endblock %}
