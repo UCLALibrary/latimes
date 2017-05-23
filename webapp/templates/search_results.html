@@ -4,59 +4,77 @@
 {% endblock %}
 
 <head>
-<script type="text/javascript" src="static/js/search_code.js"></script>
  </head>
-
+<body onload="onFacetChangeApplied()">
 {% block content %}
 <div class="container">
 <div class="row">
-	
+<form name = "search" action = 'http://127.0.0.1:8000/find' method= "get" id = 'search' class="form-inline">
+<div class="form-group">
+<input type="text" value='' id = 'q' name = 'q' placeholder='Keyword'/>
+<input type="submit" />
 {% if  page_obj.object_list %}
 <div class="col-md-3">
 	<h3>Filters</h3>
         <dl>
-        {% if facets.fields.SubjectDescription %}
-        <dt>Filter by SubjectDescription</dt>
-        {% for SubjectDescription in facets.fields.SubjectDescription %}
-        {% if SubjectDescription.1 != 0 %}
+        {% if facets.fields.BoxNumber %}
+        <dt>Filter by BoxNumber</dt>
+        {% for BoxNumber in facets.fields.BoxNumber %}
+        {% if BoxNumber.1 > 1 %}
         <dd>
-        <input class="facet" id="{{SubjectDescription.0|cut:" "}}" type="checkbox" name="SubjectDescription" value="{{ SubjectDescription.0 }}" 
-        data-toggle="toggle" /> {{ SubjectDescription.0 }} ({{ SubjectDescription.1 }})
+        <input class="facet" id="{{BoxNumber.0|cut:' '}}" type="checkbox" name="BoxNumber" value="{{ BoxNumber.0 }}" 
+        data-toggle="toggle" /> {{ BoxNumber.0 }} ({{ BoxNumber.1 }})
         </dd>
         {% endif %}
         {% endfor %}
         {% endif %}
         </dl>
         <div>
-        <input class="btn btn-info btn-sm pull-right" type="submit" value="apply filter" onclick="return onFacetChangeApplied();" />
-        </div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        
         <dl>
-
-        {% if facets.fields.SubjectName %}
-        <dt>Filter by SubjectName</dt>
-        {% for SubjectName in facets.fields.SubjectName %}
-        {% if SubjectName.1 != 0 %}
+        {% if facets.fields.Negative %}
+        <dt>Filter by Negative</dt>
+        {% for Negative in facets.fields.Negative %}
+        {% if Negative.1 > 1 %}
         <dd>
-        <input class="facet" id="{{SubjectName.0|cut:" "}}" type="checkbox" name="SubjectName" value="{{ SubjectName.0 }}" /> {{ SubjectName.0 }} ({{ SubjectName.1 }})
+        <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}" 
+        data-toggle="toggle" /> {{ Negative.0 }} ({{ Negative.1 }})
         </dd>
         {% endif %}
         {% endfor %}
         {% endif %}
         </dl>
         <div>
-        <input class="btn btn-info btn-sm pull-right" type="submit" value="apply filter" onclick="return onFacetChangeApplied();" />
-	
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        
+        <dl>
+        {% if facets.fields.Year %}
+        <dt>Filter by Year</dt>
+        {% for Year in facets.fields.Year %}
+        {% if Year.1 > 1 %}
+        <dd>
+        <input class="facet" id="{{Year.0|cut:' '}}" type="checkbox" name="Year" value="{{ Year.0 }}" /> {{ Year.0 }} ({{ Year.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
         </div>
     </div>
 {% endif %}
 	<div class="col-md-9">
             <div class="row">
                 <div class="col-md-6 col-xs-6">
-                      Search result for: <label> {{query}} </label>
+                      <br>Search result for: <label> {{query}} </label>
                </div>
                <div class="col-md-6 col-xs-6 align-right">
                
-                   Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
+                   <br>Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
                     {{ page_obj.paginator.count }}
                     results on page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                </div>
@@ -68,10 +86,10 @@
                     {% for result in page_obj.object_list %}
                         
                         <div>
-		   <a href="{{ result.object.get_absolute_url }}">
+		   <!--<a href="{{ result.object.get_absolute_url }}">
 		      <h3>{{result.object.title}}</h3>
 			            <img src="{{ result.object.image.url }}" class="img-responsive">
-		   </a>
+		   </a>-->
             <table>
 <tr>
 <td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
@@ -114,6 +132,6 @@
 	</div>
 </div>
 </div>
-
+</body>
     
 {% endblock %}

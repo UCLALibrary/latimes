@@ -16,7 +16,6 @@
       <title>{% block title %}{% block name %}{% endblock %} LA Times Photographic Index Search Tool{% endblock %}</title>
 
       {% block style %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
       {% endblock %}
 
       {% block style_extra %}
@@ -38,7 +37,7 @@
               <li>
                 <ul>
   <li><a class="active" href="http://127.0.0.1:8000">Home</a></li>
-  <li><a href="http://127.0.0.1:8000/search">Keyword Search</a></li>
+  <li><a href="http://127.0.0.1:8000/find">Keyword Search</a></li>
   <li><a href="http://127.0.0.1:8000/advsearch">Advanced Search</a></li>
   <li><a href="#about">Browse</a></li>
 </ul>
@@ -57,7 +56,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="static/css/search_code.js"></script>
+  <script src="static/js/search_code.js"></script>
+  <script src="static/js/jquery.autocomplete.js"></script>
 
   </body>
   {% endblock %}

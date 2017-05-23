@@ -17,14 +17,14 @@ class Card(models.Model):
     )
     
     #ID = models.IntegerField()
-    Negative = models.IntegerField()
+    Negative = models.IntegerField(db_index=True)
     Quantity = models.IntegerField()
-    BoxNumber = models.IntegerField()
+    BoxNumber = models.IntegerField(db_index=True)
     SubjectName = models.CharField(null=True, max_length=1000, db_index=True)
     SubjectDescription = models.CharField(null=True, max_length=10000, db_index=True)
     Month = models.IntegerField(choices=MONTHS)
     Day = models.IntegerField()
-    Year = models.IntegerField()
+    Year = models.IntegerField(db_index=True)
     #NoDate = models.CharField(null=True, max_length=10)
     PhotoDescription = models.CharField(null=True, max_length=10000, db_index=True)
     

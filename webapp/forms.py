@@ -1,32 +1,42 @@
 from haystack.forms import FacetedSearchForm
 from django import forms
 
-class FacetedProductSearchForm(FacetedSearchForm):
+class FacetedCardSearchForm(FacetedSearchForm):
 
     def __init__(self, *args, **kwargs):
         data = dict(kwargs.get("data", []))
-        self.SubjectName = data.get('SubjectName', [])
-        self.SubjectDescription = data.get('SubjectDescription', [])
-        super(FacetedProductSearchForm, self).__init__(*args, **kwargs)
+        self.Year = data.get('Year', [])
+        self.BoxNumber = data.get('BoxNumber', [])
+        self.Negative = data.get('Negative', [])
+        super(FacetedCardSearchForm, self).__init__(*args, **kwargs)
 
     def search(self):
-        sqs = super(FacetedProductSearchForm, self).search()
-        if self.SubjectDescription:
+        sqs = super(FacetedCardSearchForm, self).search()
+        if self.BoxNumber:
             query = None
-            for SubjectDescription in self.SubjectDescription:
+            for BoxNumber in self.BoxNumber:
                 if query:
                     query += u' OR '
                 else:
                     query = u''
-                query += u'"%s"' % sqs.query.clean(SubjectDescription)
-            sqs = sqs.narrow(u'category_exact:%s' % query)
-        if self.SubjectName:
+                query += u'"%s"' % sqs.query.clean(BoxNumber)
+            sqs = sqs.narrow(u'BoxNumber_exact:%s' % query)
+        if self.Negative:
             query = None
-            for SubjectName in self.SubjectName:
+            for Negative in self.Negative:
                 if query:
                     query += u' OR '
                 else:
                     query = u''
-                query += u'"%s"' % sqs.query.clean(SubjectName)
-            sqs = sqs.narrow(u'brand_exact:%s' % query)
+                query += u'"%s"' % sqs.query.clean(Negative)
+            sqs = sqs.narrow(u'Negative_exact:%s' % query)
+        if self.Year:
+            query = None
+            for Year in self.Year:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(Year)
+            sqs = sqs.narrow(u'Year_exact:%s' % query)
         return sqs

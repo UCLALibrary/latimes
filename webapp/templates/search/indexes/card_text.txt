@@ -1,2 +1,6 @@
 {{object.SubjectName}}
-{{ object.SubjectDescription|default:"" }}
+{{object.SubjectDescription|default:"" }}
+{{object.PhotoDescription}}
+{{object.BoxNumber}}
+{{object.Negative}}
+{{object.Year}}

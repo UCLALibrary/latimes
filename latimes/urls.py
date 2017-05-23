@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^search', webapp_views.keyword_home, name='keyword_home'),
     url(r'^advanced', webapp_views.advanced, name='advanced'),
     url(r'^advsearch', webapp_views.advanced_home, name='advanced_home'),
+    url(r'^search/autocomplete/$', autocomplete),
     url(r'^find', FacetedSearchView.as_view(), name='haystack_search'),
 
 ]
