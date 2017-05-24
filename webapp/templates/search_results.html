@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}
+    "{{ query }}" | {{ block.super }}
+{% endblock %}
+
+<head>
+ </head>
+<body onload="onFacetChangeApplied()">
+{% block content %}
+<div class="container">
+<div class="row">
+<form name = "search" action = 'http://127.0.0.1:8000/find' method= "get" id = 'search' class="form-inline">
+<div class="form-group">
+<input type="text" value='' id = 'q' name = 'q' placeholder='Keyword'/>
+<input type="submit" />
+{% if  page_obj.object_list %}
+<div class="col-md-3">
+	<h3>Filters</h3>
+        <dl>
+        {% if facets.fields.BoxNumber %}
+        <dt>Filter by BoxNumber</dt>
+        {% for BoxNumber in facets.fields.BoxNumber %}
+        {% if BoxNumber.1 > 1 %}
+        <dd>
+        <input class="facet" id="{{BoxNumber.0|cut:' '}}" type="checkbox" name="BoxNumber" value="{{ BoxNumber.0 }}" 
+        data-toggle="toggle" /> {{ BoxNumber.0 }} ({{ BoxNumber.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        
+        <dl>
+        {% if facets.fields.Negative %}
+        <dt>Filter by Negative</dt>
+        {% for Negative in facets.fields.Negative %}
+        {% if Negative.1 > 1 %}
+        <dd>
+        <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}" 
+        data-toggle="toggle" /> {{ Negative.0 }} ({{ Negative.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        
+        <dl>
+        {% if facets.fields.Year %}
+        <dt>Filter by Year</dt>
+        {% for Year in facets.fields.Year %}
+        {% if Year.1 > 1 %}
+        <dd>
+        <input class="facet" id="{{Year.0|cut:' '}}" type="checkbox" name="Year" value="{{ Year.0 }}" /> {{ Year.0 }} ({{ Year.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div>
+    </div>
+{% endif %}
+	<div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                      <br>Search result for: <label> {{query}} </label>
+               </div>
+               <div class="col-md-6 col-xs-6 align-right">
+               
+                   <br>Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
+                    {{ page_obj.paginator.count }}
+                    results on page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+               </div>
+            </div>    
+            <div>
+	    {% if  page_obj.object_list %}
+                <ol class="row top20">
+                
+                    {% for result in page_obj.object_list %}
+                        
+                        <div>
+		   <!--<a href="{{ result.object.get_absolute_url }}">
+		      <h3>{{result.object.title}}</h3>
+			            <img src="{{ result.object.image.url }}" class="img-responsive">
+		   </a>-->
+            <table>
+<tr>
+<td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
+<td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>
+<td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>
+<td style="width:185px;">Box Number:</td><td><a href="http://127.0.0.1:8000/box?box={{result.object.BoxNumber}}">{{result.object.BoxNumber}}</td></tr>
+<td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
+<td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>
+<td style="width:185px;">Date:</td><td><a href="http://127.0.0.1:8000/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>
+
+</table><br>
+		    </div>
+                    {% endfor %}
+                </ol>
+            </div>
+		    {% if is_paginated %}
+		      <ul class="pagination pull-right">
+		        {% if page_obj.has_previous %}
+		          <li><a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+		        {% else %}
+		          <li class="disabled"><span>&laquo;</span></li>
+		        {% endif %}
+		        {% for i in paginator.page_range %}
+		          {% if page_obj.number == i %}
+		            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+		          {% else %}
+		            <li><a href="?q={{ query }}&page={{ i }}">{{ i }}</a></li>
+		          {% endif %}
+		        {% endfor %}
+		        {% if page_obj.has_next %}
+		          <li><a href="?q={{ query }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+		        {% else %}
+		          <li class="disabled"><span>&raquo;</span></li>
+		        {% endif %}
+		      </ul>
+		    {% endif %}
+        {% else %}
+	    <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>
+	{% endif %}
+	</div>
+</div>
+</div>
+</body>
+    
+{% endblock %}

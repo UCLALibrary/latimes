@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 	'webapp',
+	'haystack',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,6 +85,14 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
+
+HAYSTACK_CONNECTIONS = {
+  'default': {
+  'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+  'URL': 'http://127.0.0.1:9200/',
+  'INDEX_NAME': 'latimes',
+  },
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
