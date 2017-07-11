@@ -1,0 +1,15 @@
+[2017-07-11 11:49:50,422][INFO ][node                     ] [Naga] version[1.7.6], pid[630], build[c730b59/2016-11-18T15:21:16Z]
+[2017-07-11 11:49:50,423][INFO ][node                     ] [Naga] initializing ...
+[2017-07-11 11:49:50,490][INFO ][plugins                  ] [Naga] loaded [], sites []
+[2017-07-11 11:49:50,537][INFO ][env                      ] [Naga] using [1] data paths, mounts [[/ (/dev/disk0s2)]], net usable_space [103.7gb], net total_space [186.1gb], types [hfs]
+[2017-07-11 11:49:52,798][INFO ][node                     ] [Naga] initialized
+[2017-07-11 11:49:52,798][INFO ][node                     ] [Naga] starting ...
+[2017-07-11 11:49:52,876][INFO ][transport                ] [Naga] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/131.179.50.139:9300]}
+[2017-07-11 11:49:52,899][INFO ][discovery                ] [Naga] elasticsearch/F3sorLsQScK1iirx6Z4Rvw
+[2017-07-11 11:49:56,685][INFO ][cluster.service          ] [Naga] new_master [Naga][F3sorLsQScK1iirx6Z4Rvw][mbp-401][inet[/131.179.50.139:9300]], reason: zen-disco-join (elected_as_master)
+[2017-07-11 11:49:56,700][INFO ][http                     ] [Naga] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/131.179.50.139:9200]}
+[2017-07-11 11:49:56,700][INFO ][node                     ] [Naga] started
+[2017-07-11 11:49:56,714][INFO ][gateway                  ] [Naga] recovered [0] indices into cluster_state
+[2017-07-11 11:50:29,412][INFO ][cluster.metadata         ] [Naga] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2017-07-11 11:50:29,698][INFO ][cluster.metadata         ] [Naga] [latimes] create_mapping [modelresult]
+[2017-07-11 11:50:32,036][INFO ][cluster.metadata         ] [Naga] [latimes] update_mapping [modelresult] (dynamic)

@@ -24,11 +24,9 @@ urlpatterns = [
     url(r'^box', webapp_views.box_list, name='box_list'),
     url(r'^date', webapp_views.date_list, name='date_list'),
     url(r'^$', webapp_views.homepage, name='homepage'),
-    url(r'^keyword', webapp_views.keyword, name='keyword'),
-    url(r'^search', webapp_views.keyword_home, name='keyword_home'),
     url(r'^advanced', webapp_views.advanced, name='advanced'),
     url(r'^advsearch', webapp_views.advanced_home, name='advanced_home'),
     url(r'^search/autocomplete/$', autocomplete),
     url(r'^find', FacetedSearchView.as_view(), name='haystack_search'),
-
+    url(r'^browse', CardList.as_view(), name='card_list'),
 ]

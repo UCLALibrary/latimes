@@ -4,6 +4,7 @@ from django.contrib.postgres.search import SearchVector
 from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
 from haystack.query import SearchQuerySet
 from django.http import JsonResponse
+from django.views.generic import ListView
 
 from webapp.models import Card
 from .forms import FacetedCardSearchForm
@@ -25,38 +26,8 @@ def date_list(request):
 	QUERY = Card.objects.filter(Year=year, Month=month, Day=day)
 	return render(request, "date.html", {"date":QUERY})
 
-def keyword_home(request):
-	return render(request, "keyword.html", {})
-
 def advanced_home(request):
 	return render(request, "advanced.html", {})	
-
-def keyword(request):
-	keyword = request.GET.get('keyword')
-	results = []
-	try:
-		first, last = keyword.split()
-		QUERY2 = Card.objects.filter(SubjectName__icontains=first).filter(SubjectName__icontains=last)
-		print(first, last)
-	except:
-		QUERY2 = Card.objects.filter(SubjectName__icontains=keyword)
-	try:
-		first, last = keyword.split(",")
-		QUERY = Card.objects.filter(SubjectDescription__icontains=first).filter(SubjectDescription__icontains=last)
-		QUERY3 = Card.objects.filter(PhotoDescription__icontains=first).filter(PhotoDescription__icontains=last)
-	except:
-		QUERY = Card.objects.filter(SubjectDescription__icontains=keyword)
-		QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword)
-	QUERY4= Card.objects.filter(Negative__icontains=keyword)
-	for q in QUERY:
-		results.append(q)
-	for q in QUERY2:
-		results.append(q)
-	for q in QUERY3:
-		results.append(q)
-	for q in QUERY4:
-		results.append(q)
-	return render(request, "search.html", {"cards": results})
 
 def advanced(request):
 	keyword = request.GET.get('keyword')
@@ -106,5 +77,13 @@ class FacetedSearchView(BaseFacetedSearchView):
   form_class = FacetedCardSearchForm
   facet_fields = ['BoxNumber', 'Negative', 'Year']
   template_name = 'search_results.html'
-  paginate_by = 20
+  paginate_by = 25
   context_object_name = 'object_list'
+
+class CardList(ListView):
+	model = Card
+	#ordering = ['BoxNumber']
+	paginate_by = 100
+
+	#print(SearchQuerySet().models(Card).query_facet('BoxNumber', '81').count())
+  
