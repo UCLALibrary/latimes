@@ -13,3 +13,15 @@
 [2017-07-11 11:50:29,412][INFO ][cluster.metadata         ] [Naga] [latimes] creating index, cause [api], templates [], shards [5]/[1], mappings []
 [2017-07-11 11:50:29,698][INFO ][cluster.metadata         ] [Naga] [latimes] create_mapping [modelresult]
 [2017-07-11 11:50:32,036][INFO ][cluster.metadata         ] [Naga] [latimes] update_mapping [modelresult] (dynamic)
+[2017-07-12 11:46:25,178][INFO ][node                     ] [Genis-Vell] version[1.7.6], pid[635], build[c730b59/2016-11-18T15:21:16Z]
+[2017-07-12 11:46:25,179][INFO ][node                     ] [Genis-Vell] initializing ...
+[2017-07-12 11:46:25,246][INFO ][plugins                  ] [Genis-Vell] loaded [], sites []
+[2017-07-12 11:46:25,291][INFO ][env                      ] [Genis-Vell] using [1] data paths, mounts [[/ (/dev/disk0s2)]], net usable_space [103.2gb], net total_space [186.1gb], types [hfs]
+[2017-07-12 11:46:27,778][INFO ][node                     ] [Genis-Vell] initialized
+[2017-07-12 11:46:27,778][INFO ][node                     ] [Genis-Vell] starting ...
+[2017-07-12 11:46:27,915][INFO ][transport                ] [Genis-Vell] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/131.179.14.210:9300]}
+[2017-07-12 11:46:27,955][INFO ][discovery                ] [Genis-Vell] elasticsearch/KAGJVJgBSTGHzeI5VZkY_Q
+[2017-07-12 11:46:31,739][INFO ][cluster.service          ] [Genis-Vell] new_master [Genis-Vell][KAGJVJgBSTGHzeI5VZkY_Q][mbp-390][inet[/131.179.14.210:9300]], reason: zen-disco-join (elected_as_master)
+[2017-07-12 11:46:31,757][INFO ][http                     ] [Genis-Vell] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/131.179.14.210:9200]}
+[2017-07-12 11:46:31,757][INFO ][node                     ] [Genis-Vell] started
+[2017-07-12 11:46:31,796][INFO ][gateway                  ] [Genis-Vell] recovered [1] indices into cluster_state

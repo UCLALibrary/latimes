@@ -5,6 +5,7 @@ from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
 from haystack.query import SearchQuerySet
 from django.http import JsonResponse
 from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 
 from webapp.models import Card
 from .forms import FacetedCardSearchForm
@@ -79,11 +80,32 @@ class FacetedSearchView(BaseFacetedSearchView):
   template_name = 'search_results.html'
   paginate_by = 25
   context_object_name = 'object_list'
+  #queryset = Card.objects.filter(SubjectName='test')
 
 class CardList(ListView):
 	model = Card
 	#ordering = ['BoxNumber']
 	paginate_by = 100
 
-	#print(SearchQuerySet().models(Card).query_facet('BoxNumber', '81').count())
+class BoxList(ListView):
+	model = Card
+	paginate_by = 40
+	template_name = 'box.html'
+	#queryset = Card.objects.filter(BoxNumber='81')
+	def get_queryset(self):
+		box = self.request.GET.get('box')
+		queryset = Card.objects.filter(BoxNumber=box)
+		return queryset
+
+class DateList(ListView):
+	model = Card
+	paginate_by = 40
+	template_name = 'date.html'
+	#queryset = Card.objects.filter(BoxNumber='81')
+	def get_queryset(self):
+		day = self.request.GET.get('day')
+		month = self.request.GET.get('month')
+		year = self.request.GET.get('year')
+		queryset = Card.objects.filter(Year=year, Day=day, Month=month)
+		return queryset
   

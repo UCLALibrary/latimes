@@ -3,31 +3,59 @@
 
 {% load staticfiles %}
 {% block content %}
-
-<div class="container">
-
-<form name = "search" action = 'http://127.0.0.1:8000/advanced' method= "get" id = 'search' class="form-inline">
-<div class="form-group">
-<input type="text" value='' id = 'keyword' name = 'keyword' placeholder='Keyword'/>
-<input type="text" value='' id = 'year' name = 'year' placeholder='Year'/>
-<input type="text" value='' id = 'boxnumb' name = 'boxnumb' placeholder='Box Number'/>
-
-<input type="submit" />
-</div>
-</form>
-<font size="3" color="blue"><b>Results: </b>{{box |length }} </font><br><br>
-{% for o in box %}
-<table>
-<tr>
-<td style="width:185px;">Subject Name:</td><td>{{o.SubjectName}}</td></tr>
-<td style="width:185px;">Subject Description:</td><td>{{o.SubjectDescription}}</td></tr>
-<td style="width:185px;">Photo Description:</td><td>{{o.PhotoDescription}}</td></tr>
-<td style="width:185px;">Box Number:</td><td>{{o.BoxNumber}}</td></tr>
-<td style="width:185px;">Quantity:</td><td>{{o.Quantity}}</td></tr>
-<td style="width:185px;">Negative Number:</td><td>{{o.Negative}}</td></tr>
-<td style="width:185px;">Date:</td><td><a href="http://127.0.0.1:8000/date?year={{o.Year}}&month={{o.Month}}&day={{o.Day}}">{{o.date}}</td></tr>
-
-</table><br>
-{% endfor %}
+<table class="table">
+      <tr>
+        <th>Subject Name</th>
+        <th>Subject Description</th>
+        <th>Photo Description</th>
+        <th>Box Number</th>
+        <th>Quantity</th>
+        <th>Negative Number</th>
+        <th>Date</th>
+      </tr>
+      {% if object_list %}
+        {% for card in object_list %}
+        <tr>
+          <td>{{card.SubjectName}}</td>
+          <td>{{card.SubjectDescription}}</td>
+          <td>{{card.PhotoDescription}}</td>
+          <td>{{card.BoxNumber}}</td>
+          <td>{{card.Quantity}}</td>
+          <td>{{card.Negative}}</td>
+          <td><a href ="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+    <div class="text-center">
+        <ul class="pagination pagination-sm">
+            {% if page_obj.number >= 5 %}
+            <li><a href="?box={{request.GET.box}}&page=1">1</a></li>
+            <li><span>...</span></li>
+            {% elif page_obj.number == 4 %}
+            <li><a href="?box={{request.GET.box}}&page=1">1</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-2" >= 1  %}
+            <li><a href="?box={{request.GET.box}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-1" >= 1  %}
+            <li><a href="?box={{request.GET.box}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            {% endif %}
+            <li class="active"><a href="?box={{request.GET.box}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            {% if page_obj.number|add:"1" <= paginator.num_pages  %}
+            <li><a href="?box={{request.GET.box}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages %}
+            <li><a href="?box={{request.GET.box}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
+            <li><span>...</span></li>
+            <li><a href="?box={{request.GET.box}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
+            <li><a href="?box={{request.GET.box}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
 {% endblock %}
 </html>

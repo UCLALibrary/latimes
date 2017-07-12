@@ -12,7 +12,7 @@
 <form name = "search" action = '/find' method= "get" id = 'search' class="form-inline">
 <div class="form-group">
 <input type="text" value='{{query}}' id = 'q' name = 'q' placeholder='Keyword'/>
-<!--<input type="submit" />-->
+<input type="submit" />
 </div>
 </form>
 {% if  page_obj.object_list %}
@@ -74,11 +74,11 @@
                 <div class="col-md-6 col-xs-6">
                       <br>Search result for: <label> {{query}} </label>
                </div>
-               <div class="col-md-6 col-xs-6 align-right">
+               <div class="col-md-2 col-xs-3 pull-right">
                
-                   <br>Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
+                   <br>{{ page_obj.start_index }} - {{ page_obj.end_index }} of 
                     {{ page_obj.paginator.count }}
-                    results on page {{ page_obj.number }}</input> of {{ page_obj.paginator.num_pages }}
+                    results <!-- on page {{ page_obj.number }}of {{ page_obj.paginator.num_pages }} -->
                </div>
             </div>    
             <div>
