@@ -8,25 +8,13 @@ from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 
 from webapp.models import Card
-from .forms import FacetedCardSearchForm
+from .forms import FacetedCardSearchForm, FacetedCardAdvancedSearchForm
 
 import json
 
 def homepage(request):
 	return render(request, "homepage.html", {})
 	
-def box_list(request):
-	box = request.GET.get('box')
-	QUERY = Card.objects.filter(BoxNumber=box)
-	return render(request, "box.html", {"box":QUERY})
-
-def date_list(request):
-	year = request.GET.get('year')
-	day = request.GET.get('day')
-	month=request.GET.get('month')
-	QUERY = Card.objects.filter(Year=year, Month=month, Day=day)
-	return render(request, "date.html", {"date":QUERY})
-
 def advanced_home(request):
 	return render(request, "advanced.html", {})	
 
@@ -80,7 +68,26 @@ class FacetedSearchView(BaseFacetedSearchView):
   template_name = 'search_results.html'
   paginate_by = 25
   context_object_name = 'object_list'
-  #queryset = Card.objects.filter(SubjectName='test')
+
+class FacetedAdvancedSearchView(BaseFacetedSearchView):
+
+  form_class = FacetedCardAdvancedSearchForm
+  facet_fields = ['BoxNumber', 'Negative', 'Year']
+  template_name = 'adv_search_results.html'
+  paginate_by = 25
+  context_object_name = 'object_list'
+
+  def get_queryset(self):
+	box = self.request.GET.get('box')
+	year = self.request.GET.get('year')
+	if year != None and box != None:
+		queryset = SearchQuerySet().filter(BoxNumber=box, Year=year)
+	if year == None and box != None:
+		queryset = SearchQuerySet().filter(BoxNumber=box)
+	if box == None and year != None:
+		queryset = SearchQuerySet().filter(Year=year)
+	return queryset
+
 
 class CardList(ListView):
 	model = Card

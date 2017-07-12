@@ -3,6 +3,7 @@
 
 {% load staticfiles %}
 {% block content %}
+<h2>All records for {{request.GET.month}}/{{request.GET.day}}/{{request.GET.year}}</h2>
 <table class="table">
       <tr>
         <th>Subject Name</th>
