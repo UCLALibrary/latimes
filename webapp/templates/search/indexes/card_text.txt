@@ -1,5 +1,5 @@
 {{object.SubjectName}}
-{{object.SubjectDescription|default:"" }}
+{{object.SubjectDescription}}
 {{object.PhotoDescription}}
 {{object.BoxNumber}}
 {{object.Negative}}
