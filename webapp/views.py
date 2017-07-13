@@ -15,18 +15,6 @@ import json
 def homepage(request):
     return render(request, "homepage.html", {})
     
-def box_list(request):
-    box = request.GET.get('box')
-    QUERY = Card.objects.filter(BoxNumber=box)
-    return render(request, "box.html", {"box":QUERY})
-
-def date_list(request):
-    year = request.GET.get('year')
-    day = request.GET.get('day')
-    month=request.GET.get('month')
-    QUERY = Card.objects.filter(Year=year, Month=month, Day=day)
-    return render(request, "date.html", {"date":QUERY})
-
 def advanced_home(request):
     return render(request, "advanced.html", {}) 
 
@@ -84,27 +72,33 @@ class FacetedSearchView(BaseFacetedSearchView):
   
 class CardList(ListView):
     model = Card
-    #ordering = ['BoxNumber']
+    #ordering = ['Year','Month','Day']
     paginate_by = 100
-    def get_context_data(self, **kwargs):
-        if 'q' in self.request.GET:
+    template_name = "card_list.html"
+    def get_queryset(self):
+        sort = self.request.GET.get('sort')
+        if 'q' in self.request.GET and self.request.GET.get('q') != '':
             search_form = SearchForm(self.request.GET)
+            sort = self.request.GET.get('sort')
             if search_form.is_valid():
                 cd = search_form.cleaned_data
-                results = SearchQuerySet().models(Card).filter(content=cd['q']).load_all()
-                print(results.count())
-                context = {
-                    'results_list': results,
-                    'search_form': search_form,
-                    'cd': cd,
-                    'total_results': results.count()
-                }    
+                if sort == 'Date':
+                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('Year','Month','Day').load_all()
+                if sort == None:
+                    results = SearchQuerySet().models(Card).filter(content=cd['q']).load_all()
+                else:
+                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by(sort).load_all()
+            return results
+        elif sort != None:
+            sort = self.request.GET.get('sort')
+            if sort == 'Date':
+                results = SearchQuerySet().order_by('Year','Month','Day')
+            else:
+                results = SearchQuerySet().order_by(sort)
+            return results
         else:
-            context = super(CardList, self).get_context_data(**kwargs)
-            context['search_form'] = SearchForm()
-        #context['form'] = self.get_form()
-        return context
-        
+            return SearchQuerySet()
+
 class BoxList(ListView):
     model = Card
     paginate_by = 40
@@ -112,27 +106,15 @@ class BoxList(ListView):
     #queryset = Card.objects.filter(BoxNumber='81')
     def get_queryset(self):
         box = self.request.GET.get('box')
-        queryset = Card.objects.filter(BoxNumber=box)
-        return queryset
-        
-    def get_context_data(self, **kwargs):
-        if 'q' in self.request.GET:
-            search_form = SearchForm(self.request.GET)
-            if search_form.is_valid():
-                cd = search_form.cleaned_data
-                results = SearchQuerySet().models(Card).filter(content=cd['q']).load_all()
-                print(results.count())
-                context = {
-                    'results_list': results,
-                    'search_form': search_form,
-                    'cd': cd,
-                    'total_results': results.count()
-                }    
+        sort = self.request.GET.get('sort')
+        if 'sort' in self.request.GET and  self.request.GET.get('sort') != '':
+            if sort == 'Date':
+                results = SearchQuerySet().filter(BoxNumber=box).order_by('Year','Month','Day')
+            else:
+                results = SearchQuerySet().filter(BoxNumber=box).order_by(sort)
+            return results
         else:
-            context = super(BoxList, self).get_context_data(**kwargs)
-            context['search_form'] = SearchForm()
-        #context['form'] = self.get_form()
-        return context
+            return SearchQuerySet().filter(BoxNumber=box)
         
 class DateList(ListView):
     model = Card
@@ -143,25 +125,12 @@ class DateList(ListView):
         day = self.request.GET.get('day')
         month = self.request.GET.get('month')
         year = self.request.GET.get('year')
-        queryset = Card.objects.filter(Year=year, Day=day, Month=month)
-        return queryset
-        
-    def get_context_data(self, **kwargs):
-        if 'q' in self.request.GET:
-            search_form = SearchForm(self.request.GET)
-            if search_form.is_valid():
-                cd = search_form.cleaned_data
-                results = SearchQuerySet().models(Card).filter(content=cd['q']).load_all()
-                print(results.count())
-                context = {
-                    'results_list': results,
-                    'search_form': search_form,
-                    'cd': cd,
-                    'total_results': results.count()
-                }    
+        sort = self.request.GET.get('sort')
+        if 'sort' in self.request.GET and  self.request.GET.get('sort') != '':
+            if sort == 'Date':
+                results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by('Year','Month','Day')
+            else:
+                results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by(sort)
+            return results
         else:
-            context = super(DateList, self).get_context_data(**kwargs)
-            context['search_form'] = SearchForm()
-        #context['form'] = self.get_form()
-        return context
-  
+            return SearchQuerySet().filter(Year=year,Month=month, Day=day)
