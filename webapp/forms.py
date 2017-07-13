@@ -40,3 +40,7 @@ class FacetedCardSearchForm(FacetedSearchForm):
                 query += u'"%s"' % sqs.query.clean(Year)
             sqs = sqs.narrow(u'Year_exact:%s' % query)
         return sqs
+
+class SearchForm(forms.Form):
+
+    q = forms.CharField(label='Keywords')

@@ -4,3 +4,7 @@
 {{object.BoxNumber}}
 {{object.Negative}}
 {{object.Year}}
+{{object.Day}}
+{{object.Month}}
+{{object.date}}
+{{object.Quantity}}
