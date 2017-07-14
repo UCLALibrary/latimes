@@ -3,15 +3,7 @@
 
 {% load staticfiles %}
 {% block content %}
- <form class="navbar-form navbar-left" action="/box" method="get">
-            <div class="form-group">
-              <input type="text" class="form-control" name="q">
-            </div>
-            <button type="submit" class="btn btn-default">Search</button>
-          </form>
-	{% if "q" in request.GET %}
-      <h3>Found <span class="badge">{{ total_results }}</span> result{{ total_results|pluralize }} containing "{{ cd.q }}"</h3>
-    {% endif %}
+  <h3><span class="badge">{{ page_obj.paginator.count }}</span> item{{ page_obj.paginator.count|pluralize }} in Box {{ request.GET.box }} </h3>
 <table class="table">
       <tr>
         <th><a href="?box={{request.GET.box}}&sort=SubjectName">Subject Name</a></th>

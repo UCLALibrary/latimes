@@ -9,6 +9,7 @@ class FacetedCardSearchForm(FacetedSearchForm):
         self.BoxNumber = data.get('BoxNumber', [])
         self.Negative = data.get('Negative', [])
         super(FacetedCardSearchForm, self).__init__(*args, **kwargs)
+        
 
     def search(self):
         sqs = super(FacetedCardSearchForm, self).search()

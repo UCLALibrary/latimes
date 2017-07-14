@@ -19,6 +19,7 @@
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 	<h3>Filters</h3>
         <dl>
+        {{facets}}
         {% if facets.fields.BoxNumber %}
         <dt>Filter by BoxNumber</dt>
         {% for BoxNumber in facets.fields.BoxNumber %}

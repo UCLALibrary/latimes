@@ -1,0 +1,154 @@
+<html>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+    <form action="" method="get">
+            <div class="form-group">
+              <input type="text" class="form-control" name="q" placeholder="Enter Search Query">
+            </div>
+          </form>
+
+	{% if "q" in request.GET %}
+
+      <h3>Found <span class="badge">{{ page_obj.paginator.count }}</span> result{{ page_obj.paginator.count|pluralize }} containing "{{ request.GET.q }}"</h3>
+
+      {% elif "q" not in request.GET %}
+
+      <h3><span class="badge">{{ page_obj.paginator.count }}</span> Record{{ page_obj.paginator.count|pluralize }} </h3>
+    {% endif %}
+<table class="table">
+{% if "q" in request.GET %}
+      <tr>
+        <th><a href="?q={{request.GET.q}}&sort=SubjectName">Subject Name</a></th>
+        <th><a href="?q={{request.GET.q}}&sort=SubjectDescription">Subject Description</th>
+        <th><a href="?q={{request.GET.q}}&sort=PhotoDescription">Photo Description</th>
+        <th><a href="?q={{request.GET.q}}&sort=BoxNumber">Box Number</th>
+        <th><a href="?q={{request.GET.q}}&sort=Quantity">Quantity</th>
+        <th><a href="?q={{request.GET.q}}&sort=Negative">Negative Number</th>
+        <th><a href="?q={{request.GET.q}}&sort=Date">Date</th>
+      </tr>
+{% elif "q" not in request.GET %}
+      <tr>
+        <th><a href="?sort=SubjectName">Subject Name</a></th>
+        <th><a href="?sort=SubjectDescription">Subject Description</th>
+        <th><a href="?sort=PhotoDescription">Photo Description</th>
+        <th><a href="?sort=BoxNumber">Box Number</th>
+        <th><a href="?sort=Quantity">Quantity</th>
+        <th><a href="?sort=Negative">Negative Number</th>
+        <th><a href="?sort=Date">Date</th>
+      </tr>
+  {% endif %} 
+      {% if object_list %}
+        {% for card in object_list %}
+        <tr>
+          <td>{{card.SubjectName}}</td>
+          <td>{{card.SubjectDescription}}</td>
+          <td>{{card.PhotoDescription}}</td>
+          <td><a href="/box?box={{card.BoxNumber}}">{{card.BoxNumber}}</a></td>
+          <td>{{card.Quantity}}</td>
+          <td>{{card.Negative}}</td>
+          <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
+        </tr>
+        {% endfor %}
+		{% elif results_list %}
+        {% for card in results_list %}
+          <tr>
+            <td>{{card.SubjectName}}</td>
+          <td>{{card.SubjectDescription}}</td>
+          <td>{{card.PhotoDescription}}</td>
+          <td><a href="/box?box={{card.BoxNumber}}">{{card.BoxNumber}}</a></td>
+          <td>{{card.Quantity}}</td>
+          <td>{{card.Negative}}</td>
+          <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
+          </tr>
+        {% endfor %}
+      {% endif %}      
+    
+    </table>
+    <div class="text-center">
+        <ul class="pagination pagination-sm">
+        {% if "q" in request.GET %}
+            {% if page_obj.number >= 5 %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page=1">1</a></li>
+            <li><span>...</span></li>
+            {% elif page_obj.number == 4 %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page=1">1</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-2" >= 1  %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-1" >= 1  %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            {% endif %}
+            <li class="active"><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            {% if page_obj.number|add:"1" <= paginator.num_pages  %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
+            <li><span>...</span></li>
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
+            <li><a href="?q={{request.GET.q}}&sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+        {% elif 'q' not in request.GET and 'sort' in request.GET %}
+            {% if page_obj.number >= 5 %}
+            <li><a href="?sort={{request.GET.sort}}&page=1">1</a></li>
+            <li><span>...</span></li>
+            {% elif page_obj.number == 4 %}
+            <li><a href="?sort={{request.GET.sort}}&page=1">1</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-2" >= 1  %}
+            <li><a href="?sort={{request.GET.sort}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-1" >= 1  %}
+            <li><a href="?sort={{request.GET.sort}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            {% endif %}
+            <li class="active"><a href="?sort={{request.GET.sort}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            {% if page_obj.number|add:"1" <= paginator.num_pages  %}
+            <li><a href="?sort={{request.GET.sort}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages %}
+            <li><a href="?sort={{request.GET.sort}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
+            <li><span>...</span></li>
+            <li><a href="?sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
+            <li><a href="?sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+        {% elif 'q' not in request.GET and 'sort' not in request.GET %}
+        {% if page_obj.number >= 5 %}
+            <li><a href="?page=1">1</a></li>
+            <li><span>...</span></li>
+            {% elif page_obj.number == 4 %}
+            <li><a href="?page=1">1</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-2" >= 1  %}
+            <li><a href="?page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"-1" >= 1  %}
+            <li><a href="?page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            {% endif %}
+            <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            {% if page_obj.number|add:"1" <= paginator.num_pages  %}
+            <li><a href="?page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages %}
+            <li><a href="?page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            {% endif %}
+            {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
+            <li><span>...</span></li>
+            <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
+            <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</body>
+{% endblock %}
+</html>
