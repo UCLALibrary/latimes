@@ -42,6 +42,51 @@ class FacetedCardSearchForm(FacetedSearchForm):
             sqs = sqs.narrow(u'Year_exact:%s' % query)
         return sqs
 
+class FacetedCardAdvancedSearchForm(FacetedSearchForm):
+
+    def __init__(self, *args, **kwargs):
+        data = dict(kwargs.get("data", []))
+        self.SubjectName = data.get('SubjectName', [])
+        self.BoxNumber = data.get('BoxNumber', [])
+        self.SubjectDescription = data.get('SubjectDescription', [])
+        super(FacetedCardAdvancedSearchForm, self).__init__(*args, **kwargs)
+        
+
+    def search(self):
+        sqs = super(FacetedCardAdvancedSearchForm, self).search()
+        if self.data['boxnumb']:
+        	sqs = sqs.filter(BoxNumber = self.data['boxnumb'])
+        if self.data['year']:
+        	sqs = sqs.filter(Year = self.data['year'])
+        if self.BoxNumber:
+            query = None
+            for BoxNumber in self.BoxNumber:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(BoxNumber)
+            sqs = sqs.narrow(u'BoxNumber_exact:%s' % query)
+        if self.SubjectName:
+            query = None
+            for SubjectName in self.SubjectName:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(SubjectName)
+            sqs = sqs.narrow(u'SubjectName_exact:%s' % query)
+        if self.SubjectDescription:
+            query = None
+            for SubjectDescription in self.SubjectDescription:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(SubjectDescription)
+            sqs = sqs.narrow(u'SubjectDescription_exact:%s' % query)
+        return sqs
+
 class SearchForm(forms.Form):
 
     q = forms.CharField(label='Keywords')

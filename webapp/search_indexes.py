@@ -6,7 +6,7 @@ from .models import Card
 class CardIndex(indexes.SearchIndex, indexes.Indexable):
   text = indexes.CharField(
   document=True, use_template=True,
-  template_name='/Users/cliccuser/latimes/webapp/templates/search/indexes/card_text.txt')
+  template_name='/Users/niqui/latimes/webapp/templates/search/indexes/card_text.txt')
   SubjectName = indexes.CharField(model_attr='SubjectName', faceted=True)
   SubjectDescription = indexes.CharField(model_attr="SubjectDescription", faceted=True)
   PhotoDescription = indexes.CharField(model_attr="PhotoDescription", faceted=True)

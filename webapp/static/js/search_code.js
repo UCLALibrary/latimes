@@ -44,6 +44,19 @@ function onFacetChangeApplied(){
 	return true;
 }    
 
+function advancedFaceting(){
+	var url = window.location.href;
+	$('input:checkbox.facet').each(function () {
+    	var sThisVal = (this.checked ? $(this).val() : null);
+        var sThisName = (this.checked ? $(this).attr('name') : null);
+        if(sThisVal !== null){
+        	url += '&'+encodeURIComponent(sThisName)+'='+encodeURIComponent(sThisVal);
+        }
+    });
+	location.href = url;
+	return true;
+}    
+
 
 function getQueryParams(){
     var vars = {}, hash;

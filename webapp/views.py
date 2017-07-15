@@ -8,7 +8,7 @@ from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 
 from webapp.models import Card
-from .forms import FacetedCardSearchForm, SearchForm
+from .forms import FacetedCardSearchForm, SearchForm, FacetedCardAdvancedSearchForm
 
 import json
 
@@ -69,7 +69,16 @@ class FacetedSearchView(BaseFacetedSearchView):
   paginate_by = 25
   context_object_name = 'object_list'
   #queryset = Card.objects.filter(SubjectName='test')
-  
+
+class FacetedAdvancedSearchView(BaseFacetedSearchView):
+
+  form_class = FacetedCardAdvancedSearchForm
+  facet_fields = ['Negative', 'SubjectName', 'SubjectDescription']
+  template_name = 'adv_search_results.html'
+  paginate_by = 25
+  context_object_name = 'object_list'
+  #queryset = Card.objects.filter(SubjectName='test')
+    
 class CardList(ListView):
     model = Card
     #ordering = ['Year','Month','Day']

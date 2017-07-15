@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^date', DateList.as_view(), name='date_list'),
     url(r'^$', webapp_views.homepage, name='homepage'),
-    url(r'^advanced', webapp_views.advanced, name='advanced'),
+    url(r'^advanced', FacetedAdvancedSearchView.as_view(), name='advanced'),
     url(r'^advsearch', webapp_views.advanced_home, name='advanced_home'),
     url(r'^search/autocomplete/$', autocomplete),
     url(r'^find', FacetedSearchView.as_view(), name='haystack_search'),
