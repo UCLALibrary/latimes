@@ -18,35 +18,6 @@ def homepage(request):
 def advanced_home(request):
     return render(request, "advanced.html", {}) 
 
-def advanced(request):
-    keyword = request.GET.get('keyword')
-    year = request.GET.get('year')
-    boxnumb =request.GET.get('boxnumb')
-    results = []
-    try:
-        first, last = keyword.split()
-        QUERY2 = Card.objects.filter(SubjectName__icontains=first).filter(SubjectName__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
-        print(first, last)
-    except:
-        QUERY2 = Card.objects.filter(SubjectName__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-    try:
-        first, last = keyword.split(",")
-        QUERY = Card.objects.filter(SubjectDescription__icontains=first).filter(SubjectDescription__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
-        QUERY3 = Card.objects.filter(PhotoDescription__icontains=first).filter(PhotoDescription__icontains=last, Year__icontains=year, BoxNumber__icontains=boxnumb)
-    except:
-        QUERY = Card.objects.filter(SubjectDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-        QUERY3 = Card.objects.filter(PhotoDescription__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-    QUERY4= Card.objects.filter(Negative__icontains=keyword, Year__icontains=year, BoxNumber__icontains=boxnumb)
-    
-    for q in QUERY:
-        results.append(q)   
-    for q in QUERY2:
-        results.append(q)
-    for q in QUERY3:
-        results.append(q)
-    for q in QUERY4:
-        results.append(q)
-    return render(request, "advsearch.html", {"cards": results})
     
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(
@@ -92,11 +63,11 @@ class CardList(ListView):
             if search_form.is_valid():
                 cd = search_form.cleaned_data
                 if sort == 'Date':
-                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('Year','Month','Day').load_all()
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by('Year','Month','Day').load_all()
                 if sort == None:
-                    results = SearchQuerySet().models(Card).filter(content=cd['q']).load_all()
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).load_all()
                 else:
-                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by(sort).load_all()
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by(sort).load_all()
             return results
         elif sort != None:
             sort = self.request.GET.get('sort')
