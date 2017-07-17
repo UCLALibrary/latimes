@@ -100,37 +100,36 @@
 <td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
 <td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>
 <td style="width:185px;">Date:</td><td><a href="/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>
-
 </table><br>
 		    </div>
                     {% endfor %}
             </div>
 <div class="text-center">
-        <ul class="pagination pagination-sm">
+    <ul class="pagination pagination-sm">
             {% if page_obj.number >= 5 %}
-            <li><a href="?q={{query}}&page=1">1</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page=1">1</a></li>
             <li><span>...</span></li>
             {% elif page_obj.number == 4 %}
-            <li><a href="?q={{query}}&page=1">1</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page=1">1</a></li>
             {% endif %}
             {% if page_obj.number|add:"-2" >= 1  %}
-            <li><a href="?q={{query}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"-1" >= 1  %}
-            <li><a href="?q={{query}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
             {% endif %}
-            <li class="active"><a href="?q={{query}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            <li class="active"><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
             {% if page_obj.number|add:"1" <= paginator.num_pages  %}
-            <li><a href="?q={{query}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"2" <= paginator.num_pages %}
-            <li><a href="?q={{query}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
             <li><span>...</span></li>
-            <li><a href="?q={{query}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
             {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
-            <li><a href="?q={{query}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            <li><a href="?q={{query}}{% if request.GET.BoxNumber|length > 0 %}&BoxNumber={{request.GET.BoxNumber}}{% endif %}{% if request.GET.Negative|length > 0%}&Negative={{request.GET.Negative}}{% endif %}{% if request.GET.Year|length > 0 %}&Year={{request.GET.Year}}{% endif %}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
             {% endif %}
         </ul>
     </div>

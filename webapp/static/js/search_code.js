@@ -30,22 +30,11 @@ function getParameterByName(name, url) {
 
 
 function onFacetChangeApplied(){
-	var url = window.location.href.split("?")[0];
-	var search_query = getParameterByName('q');
-	var url_with_search_query = url + '?q=' + search_query 
-	$('input:checkbox.facet').each(function () {
-    	var sThisVal = (this.checked ? $(this).val() : null);
-        var sThisName = (this.checked ? $(this).attr('name') : null);
-        if(sThisVal !== null){
-        	url_with_search_query += '&'+encodeURIComponent(sThisName)+'='+encodeURIComponent(sThisVal);
-        }
-    });
-	location.href = url_with_search_query;
-	return true;
-}    
-
-function advancedFaceting(){
 	var url = window.location.href;
+	if (url.includes("page")) {
+		var newurl = url.split("&page=");
+		url = newurl[0]
+	}
 	$('input:checkbox.facet').each(function () {
     	var sThisVal = (this.checked ? $(this).val() : null);
         var sThisName = (this.checked ? $(this).attr('name') : null);
@@ -53,6 +42,25 @@ function advancedFaceting(){
         	url += '&'+encodeURIComponent(sThisName)+'='+encodeURIComponent(sThisVal);
         }
     });
+
+	location.href = url;
+	return true;
+}    
+
+function advancedFaceting(){
+		var url = window.location.href;
+	if (url.includes("page")) {
+		var newurl = url.split("&page=");
+		url = newurl[0]
+	}
+	$('input:checkbox.facet').each(function () {
+    	var sThisVal = (this.checked ? $(this).val() : null);
+        var sThisName = (this.checked ? $(this).attr('name') : null);
+        if(sThisVal !== null){
+        	url += '&'+encodeURIComponent(sThisName)+'='+encodeURIComponent(sThisVal);
+        }
+    });
+
 	location.href = url;
 	return true;
 }    
