@@ -143,7 +143,7 @@
         </ul>
     </div>
         {% else %}
-	    <p> Sorry, no result found for the search term  <strong> "{{query}}"</strong></p>
+	    <p> Sorry, no result found for the search term  <strong> "{{query}}"</strong> {% if request.GET.year != '' %}in the Year <strong>"{{request.GET.year}}"</strong>{% endif %}{% if request.GET.boxnumb != '' %} in Box <strong>"{{request.GET.boxnumb}}"</strong>{% endif %}</p>
 	{% endif %}
 	</div>
 </div>
