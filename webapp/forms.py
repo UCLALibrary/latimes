@@ -47,7 +47,7 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
     def __init__(self, *args, **kwargs):
         data = dict(kwargs.get("data", []))
         self.SubjectName = data.get('SubjectName', [])
-        self.BoxNumber = data.get('BoxNumber', [])
+        self.Negative = data.get('Negative', [])
         self.SubjectDescription = data.get('SubjectDescription', [])
         super(FacetedCardAdvancedSearchForm, self).__init__(*args, **kwargs)
         
@@ -58,15 +58,16 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
         	sqs = sqs.filter(BoxNumber = self.data['boxnumb'])
         if self.data['year']:
         	sqs = sqs.filter(Year = self.data['year'])
-        if self.BoxNumber:
+        if self.Negative:
             query = None
-            for BoxNumber in self.BoxNumber:
+            for Negative in self.Negative:
                 if query:
                     query += u' OR '
                 else:
                     query = u''
-                query += u'"%s"' % sqs.query.clean(BoxNumber)
-            sqs = sqs.narrow(u'BoxNumber_exact:%s' % query)
+                query += u'"%s"' % sqs.query.clean(Negative)
+            sqs = sqs.narrow(u'Negative_exact:%s' % query)
+            print(sqs.count())
         if self.SubjectName:
             query = None
             for SubjectName in self.SubjectName:

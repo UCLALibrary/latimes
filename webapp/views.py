@@ -63,12 +63,14 @@ class CardList(ListView):
             if search_form.is_valid():
                 cd = search_form.cleaned_data
                 if sort == 'Date':
-                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by('Year','Month','Day').load_all()
+                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('Year','Month', 'Day').load_all()
+                    return results
                 if sort == None:
                     results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).load_all()
+                    return results
                 else:
                     results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by(sort).load_all()
-            return results
+                    return results
         elif sort != None:
             sort = self.request.GET.get('sort')
             if sort == 'Date':
