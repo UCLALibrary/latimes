@@ -1,0 +1,22 @@
+<html>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+<h1>Contact Information</h1>
+
+
+Email: <a href="mailto:spec-coll@library.ucla.edu" class="location__email-link location__email-link">spec-coll@library.ucla.edu</a>
+<br>
+Address: <a href="https://www.google.com/maps/place/Charles+E.+Young+Research+Library" target="_blank">A1713 Charles E. Young Research Library Los Angeles, CA 90095-1575</a>
+<br>
+Phone: (310) 825-4988
+<br>
+
+<h4><a href="http://www.library.ucla.edu/special-collections" target="_blank">UCLA Special Collections website embedded below. Hours listed on home page</a></h4>
+<br>
+
+<iframe src="http://www.library.ucla.edu/special-collections" style="width:100%; height:100%;"></iframe>
+
+{% endblock %}
+</html>

@@ -18,7 +18,9 @@ def homepage(request):
 def advanced_home(request):
     return render(request, "advanced.html", {}) 
 
-    
+def contact(request):
+    return render(request, "contact.html", {}) 
+
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(
         content_auto=request.GET.get(
