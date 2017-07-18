@@ -20,23 +20,23 @@
 <table class="table">
 {% if "q" in request.GET %}
       <tr>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=SubjectName{% else %}sortBy=-SubjectName{% endif %}">{% if '-' in request.GET.sortBy %}Subject Name&#9650;{% else %}Subject Name&#9660;{% endif %}</a></th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=SubjectDescription{% else %}sortBy=-SubjectDescription{% endif %}">{% if '-' in request.GET.sortBy %}Subject Description&#9650;{% else %}Subject Description&#9660;{% endif %}</th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=PhotoDescription{% else %}sortBy=-PhotoDescription{% endif %}">{% if '-' in request.GET.sortBy %}Photo Description&#9650;{% else %}Photo Description&#9660;{% endif %}</th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=BoxNumber{% else %}sortBy=-BoxNumber{% endif %}">{% if '-' in request.GET.sortBy %}Box Number&#9650;{% else %}Box Number&#9660;{% endif %}</th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=Quantity{% else %}sortBy=-Quantity{% endif %}">{% if '-' in request.GET.sortBy %}Quantity&#9650;{% else %}Quantity&#9660;{% endif %}</th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=Negative{% else %}sortBy=-Negative{% endif %}">{% if '-' in request.GET.sortBy %}Negative Number&#9650;{% else %}Negative Number&#9660;{% endif %}</th>
-        <th><a href="?q={{request.GET.q}}&{% if '-' in request.GET.sortBy %}sortBy=Date{% else %}sortBy=-Date{% endif %}">{% if '-' in request.GET.sortBy %}Date&#9650;{% else %}Date&#9660;{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'SubjectName'%}sortBy=-SubjectName{% else %}sortBy=SubjectName{% endif %}">{% if request.GET.sortBy == 'SubjectName' %}Subject Name&#9660;{% elif request.GET.sortBy == '-SubjectName' %}Subject Name&#9650;{% else %}Subject Name{% endif %}</a></th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'SubjectDescription'%}sortBy=-SubjectDescription{% else %}sortBy=SubjectDescription{% endif %}">{% if request.GET.sortBy == 'SubjectDescription' %}Subject Description&#9660;{% elif request.GET.sortBy == '-SubjectDescription' %}Subject Description&#9650;{% else %}Subject Description{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'PhotoDescription'%}sortBy=-PhotoDescription{% else %}sortBy=PhotoDescription{% endif %}">{% if request.GET.sortBy == 'PhotoDescription' %}Photo Description&#9660;{% elif request.GET.sortBy == '-PhotoDescription' %}Photo Description&#9650;{% else %}Photo Description{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'BoxNumber'%}sortBy=-BoxNumber{% else %}sortBy=BoxNumber{% endif %}">{% if request.GET.sortBy == 'BoxNumber' %}Box Number&#9660;{% elif request.GET.sortBy == '-BoxNumber' %}Box Number&#9650;{% else %}Box Number{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Quantity'%}sortBy=-Quantity{% else %}sortBy=Quantity{% endif %}">{% if request.GET.sortBy == 'Quantity' %}Quantity&#9660;{% elif request.GET.sortBy == '-Quantity' %}Quantity&#9650;{% else %}Quantity{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Negative'%}sortBy=-Negative{% else %}sortBy=Negative{% endif %}">{% if request.GET.sortBy == 'Negative' %}Negative&#9660;{% elif request.GET.sortBy == '-Negative' %}Negative&#9650;{% else %}Negative{% endif %}</th>
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Date'%}sortBy=-Date{% else %}sortBy=Date{% endif %}">{% if request.GET.sortBy == 'Date' %}Date&#9660;{% elif request.GET.sortBy == '-Date' %}Date&#9650;{% else %}Date{% endif %}</th>
       </tr>
 {% elif "q" not in request.GET %}
       <tr>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=SubjectName{% else %}sortBy=-SubjectName{% endif %}">{% if '-' in request.GET.sortBy %}Subject Name&#9650;{% else %}Subject Name&#9660;{% endif %}</a></th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=SubjectDescription{% else %}sortBy=-SubjectDescription{% endif %}">{% if '-' in request.GET.sortBy %}Subject Description&#9650;{% else %}Subject Description&#9660;{% endif %}</th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=PhotoDescription{% else %}sortBy=-PhotoDescription{% endif %}">{% if '-' in request.GET.sortBy %}Photo Description&#9650;{% else %}Photo Description&#9660;{% endif %}</th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=BoxNumber{% else %}sortBy=-BoxNumber{% endif %}">{% if '-' in request.GET.sortBy %}Box Number&#9650;{% else %}Box Number&#9660;{% endif %}</th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=Quantity{% else %}sortBy=-Quantity{% endif %}">{% if '-' in request.GET.sortBy %}Quantity&#9650;{% else %}Quantity&#9660;{% endif %}</th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=Negative{% else %}sortBy=-Negative{% endif %}">{% if '-' in request.GET.sortBy %}Negative Number&#9650;{% else %}Negative Number&#9660;{% endif %}</th>
-        <th><a href="?{% if '-' in request.GET.sortBy %}sortBy=Date{% else %}sortBy=-Date{% endif %}">{% if '-' in request.GET.sortBy %}Date&#9650;{% else %}Date&#9660;{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'SubjectName'%}sortBy=-SubjectName{% else %}sortBy=SubjectName{% endif %}"">{% if request.GET.sortBy == 'SubjectName' %}Subject Name&#9660;{% elif request.GET.sortBy == '-SubjectName' %}Subject Name&#9650;{% else %}Subject Name{% endif %}</a></th>
+        <th><a href="?{% if request.GET.sortBy == 'SubjectDescription'%}sortBy=-SubjectDescription{% else %}sortBy=SubjectDescription{% endif %}">{% if request.GET.sortBy == 'SubjectDescription' %}Subject Description&#9660;{% elif request.GET.sortBy == '-SubjectDescription' %}Subject Description&#9650;{% else %}Subject Description{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'PhotoDescription'%}sortBy=-PhotoDescription{% else %}sortBy=PhotoDescription{% endif %}">{% if request.GET.sortBy == 'PhotoDescription' %}Photo Description&#9660;{% elif request.GET.sortBy == '-PhotoDescription' %}Photo Description&#9650;{% else %}Photo Description{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'BoxNumber'%}sortBy=-BoxNumber{% else %}sortBy=BoxNumber{% endif %}">{% if request.GET.sortBy == 'BoxNumber' %}Box Number&#9660;{% elif request.GET.sortBy == '-BoxNumber' %}Box Number&#9650;{% else %}Box Number{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'Quantity'%}sortBy=-Quantity{% else %}sortBy=Quantity{% endif %}">{% if request.GET.sortBy == 'Quantity' %}Quantity&#9660;{% elif request.GET.sortBy == '-Quantity' %}Quantity&#9650;{% else %}Quantity{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'Negative'%}sortBy=-Negative{% else %}sortBy=Negative{% endif %}">{% if request.GET.sortBy == 'Negative' %}Negative&#9660;{% elif request.GET.sortBy == '-Negative' %}Negative&#9650;{% else %}Negative{% endif %}</th>
+        <th><a href="?{% if request.GET.sortBy == 'Date'%}sortBy=-Date{% else %}sortBy=Date{% endif %}">{% if request.GET.sortBy == 'Date' %}Date&#9660;{% elif request.GET.sortBy == '-Date' %}Date&#9650;{% else %}Date{% endif %}</th>
       </tr>
   {% endif %} 
       {% if object_list %}

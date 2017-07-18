@@ -58,6 +58,7 @@ class CardList(ListView):
     paginate_by = 100
     template_name = "card_list.html"
     def get_queryset(self):
+        sortBy = self.request.GET.get('sortBy')
         if 'q' in self.request.GET and self.request.GET.get('q') != '':
             search_form = SearchForm(self.request.GET)
             if search_form.is_valid():
