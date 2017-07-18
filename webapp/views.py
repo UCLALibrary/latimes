@@ -58,27 +58,32 @@ class CardList(ListView):
     paginate_by = 100
     template_name = "card_list.html"
     def get_queryset(self):
-        sort = self.request.GET.get('sort')
         if 'q' in self.request.GET and self.request.GET.get('q') != '':
             search_form = SearchForm(self.request.GET)
-            sort = self.request.GET.get('sort')
             if search_form.is_valid():
+                sortBy = self.request.GET.get('sortBy')
                 cd = search_form.cleaned_data
-                if sort == 'Date':
+                if sortBy == 'Date':
+                    print("test")
                     results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('Year','Month', 'Day').load_all()
-                    return results
-                if sort == None:
+                    #return results
+                if sortBy == '-Date':
+                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('-Year','-Month', '-Day').load_all()
+                    #return results
+                if sortBy == None:
                     results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).load_all()
-                    return results
-                else:
-                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by(sort).load_all()
-                    return results
-        elif sort != None:
-            sort = self.request.GET.get('sort')
-            if sort == 'Date':
+                    #return results
+                elif 'Date' not in sortBy:
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by(sortBy).load_all()
+                return results
+        elif sortBy != None:
+            sortBy = self.request.GET.get('sortBy')
+            if sortBy == 'Date':
                 results = SearchQuerySet().order_by('Year','Month','Day')
-            else:
-                results = SearchQuerySet().order_by(sort)
+            if sortBy == '-Date':
+                results = SearchQuerySet().order_by('-Year','-Month','-Day')
+            elif 'Date' not in sortBy:
+                results = SearchQuerySet().order_by(sortBy)
             return results
         else:
             return SearchQuerySet()
@@ -90,12 +95,14 @@ class BoxList(ListView):
     #queryset = Card.objects.filter(BoxNumber='81')
     def get_queryset(self):
         box = self.request.GET.get('box')
-        sort = self.request.GET.get('sort')
-        if 'sort' in self.request.GET and  self.request.GET.get('sort') != '':
-            if sort == 'Date':
+        sortBy = self.request.GET.get('sortBy')
+        if 'sortBy' in self.request.GET and  self.request.GET.get('sortBy') != '':
+            if sortBy == 'Date':
                 results = SearchQuerySet().filter(BoxNumber=box).order_by('Year','Month','Day')
+            if sortBy == '-Date':
+                results = SearchQuerySet().filter(BoxNumber=box).order_by('-Year','-Month','-Day')
             else:
-                results = SearchQuerySet().filter(BoxNumber=box).order_by(sort)
+                results = SearchQuerySet().filter(BoxNumber=box).order_by(sortBy)
             return results
         else:
             return SearchQuerySet().filter(BoxNumber=box)
@@ -109,12 +116,14 @@ class DateList(ListView):
         day = self.request.GET.get('day')
         month = self.request.GET.get('month')
         year = self.request.GET.get('year')
-        sort = self.request.GET.get('sort')
-        if 'sort' in self.request.GET and  self.request.GET.get('sort') != '':
-            if sort == 'Date':
+        sortBy = self.request.GET.get('sortBy')
+        if 'sortBy' in self.request.GET and  self.request.GET.get('sortBy') != '':
+            if sortBy == 'Date':
                 results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by('Year','Month','Day')
+            if sortBy == '-Date':
+                results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by('-Year','-Month','-Day')
             else:
-                results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by(sort)
+                results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by(sortBy)
             return results
         else:
             return SearchQuerySet().filter(Year=year,Month=month, Day=day)

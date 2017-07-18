@@ -1,4 +1,4 @@
-	1. Sorting on Browse. Both ways
+	<strike>1. Sorting on Browse. Both ways</strike>
 
 	2. Sorting on Keyword/Advanced search?
 
