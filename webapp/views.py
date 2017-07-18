@@ -68,15 +68,11 @@ class CardList(ListView):
                 sortBy = self.request.GET.get('sortBy')
                 cd = search_form.cleaned_data
                 if sortBy == 'Date':
-                    print("test")
-                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('Year','Month', 'Day').load_all()
-                    #return results
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by('Year','Month', 'Day').load_all()
                 if sortBy == '-Date':
-                    results = SearchQuerySet().models(Card).filter(content=cd['q']).order_by('-Year','-Month', '-Day').load_all()
-                    #return results
+                    results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by('-Year','-Month', '-Day').load_all()
                 if sortBy == None:
                     results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).load_all()
-                    #return results
                 elif 'Date' not in sortBy:
                     results = SearchQuerySet().models(Card).filter(content=cd['q'].replace("'", " ")).order_by(sortBy).load_all()
                 return results
