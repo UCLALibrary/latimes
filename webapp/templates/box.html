@@ -6,13 +6,13 @@
   <h3><span class="badge">{{ page_obj.paginator.count }}</span> item{{ page_obj.paginator.count|pluralize }} in Box {{ request.GET.box }} </h3>
 <table class="table">
       <tr>
-        <th><a href="?box={{request.GET.box}}&sort=SubjectName">Subject Name</a></th>
-        <th><a href="?box={{request.GET.box}}&sort=SubjectDescription">Subject Description</th>
-        <th><a href="?box={{request.GET.box}}&sort=PhotoDescription">Photo Description</th>
-        <th><a href="?box={{request.GET.box}}&sort=BoxNumber">Box Number</th>
-        <th><a href="?box={{request.GET.box}}&sort=Quantity">Quantity</th>
-        <th><a href="?box={{request.GET.box}}&sort=Negative">Negative Number</th>
-        <th><a href="?box={{request.GET.box}}&sort=Date">Date</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'SubjectName'%}sortBy=-SubjectName{% else %}sortBy=SubjectName{% endif %}"">{% if request.GET.sortBy == 'SubjectName' %}Subject Name&#9660;{% elif request.GET.sortBy == '-SubjectName' %}Subject Name&#9650;{% else %}Subject Name{% endif %}</a></th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'SubjectDescription'%}sortBy=-SubjectDescription{% else %}sortBy=SubjectDescription{% endif %}">{% if request.GET.sortBy == 'SubjectDescription' %}Subject Description&#9660;{% elif request.GET.sortBy == '-SubjectDescription' %}Subject Description&#9650;{% else %}Subject Description{% endif %}</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'PhotoDescription'%}sortBy=-PhotoDescription{% else %}sortBy=PhotoDescription{% endif %}">{% if request.GET.sortBy == 'PhotoDescription' %}Photo Description&#9660;{% elif request.GET.sortBy == '-PhotoDescription' %}Photo Description&#9650;{% else %}Photo Description{% endif %}</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'BoxNumber'%}sortBy=-BoxNumber{% else %}sortBy=BoxNumber{% endif %}">{% if request.GET.sortBy == 'BoxNumber' %}Box Number&#9660;{% elif request.GET.sortBy == '-BoxNumber' %}Box Number&#9650;{% else %}Box Number{% endif %}</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'Quantity'%}sortBy=-Quantity{% else %}sortBy=Quantity{% endif %}">{% if request.GET.sortBy == 'Quantity' %}Quantity&#9660;{% elif request.GET.sortBy == '-Quantity' %}Quantity&#9650;{% else %}Quantity{% endif %}</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'Negative'%}sortBy=-Negative{% else %}sortBy=Negative{% endif %}">{% if request.GET.sortBy == 'Negative' %}Negative&#9660;{% elif request.GET.sortBy == '-Negative' %}Negative&#9650;{% else %}Negative{% endif %}</th>
+        <th><a href="?box={{request.GET.box}}&{% if request.GET.sortBy == 'Date'%}sortBy=-Date{% else %}sortBy=Date{% endif %}">{% if request.GET.sortBy == 'Date' %}Date&#9660;{% elif request.GET.sortBy == '-Date' %}Date&#9650;{% else %}Date{% endif %}</th>
       </tr>
       {% if object_list %}
         {% for card in object_list %}
@@ -42,7 +42,7 @@
     </table>
     <div class="text-center">
         <ul class="pagination pagination-sm">
-          {%if 'sort' not in request.GET %}
+          {%if 'sortBy' not in request.GET %}
             {% if page_obj.number >= 5 %}
             <li><a href="?box={{request.GET.box}}&page=1">1</a></li>
             <li><span>...</span></li>
@@ -68,31 +68,31 @@
             {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
             <li><a href="?box={{request.GET.box}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
             {% endif %}
-            {% elif 'sort' in request.GET %}
+            {% elif 'sortBy' in request.GET %}
             {% if page_obj.number >= 5 %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page=1">1</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page=1">1</a></li>
             <li><span>...</span></li>
             {% elif page_obj.number == 4 %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page=1">1</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page=1">1</a></li>
             {% endif %}
             {% if page_obj.number|add:"-2" >= 1  %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ page_obj.number|add:"-2" }}">{{ page_obj.number|add:"-2" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"-1" >= 1  %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ page_obj.number|add:"-1" }}">{{ page_obj.number|add:"-1" }}</a></li>
             {% endif %}
-            <li class="active"><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+            <li class="active"><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
             {% if page_obj.number|add:"1" <= paginator.num_pages  %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ page_obj.number|add:"1" }}">{{ page_obj.number|add:"1" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"2" <= paginator.num_pages %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ page_obj.number|add:"2" }}">{{ page_obj.number|add:"2" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"2" <= paginator.num_pages|add:"-2" %}
             <li><span>...</span></li>
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
             {% elif page_obj.number|add:"1" <= paginator.num_pages|add:"-2" %}
-            <li><a href="?box={{request.GET.box}}&sort={{request.GET.sort}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+            <li><a href="?box={{request.GET.box}}&sortBy={{request.GET.sortBy}}&page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
             {% endif %}
             {% endif %}
         </ul>

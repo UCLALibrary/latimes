@@ -105,7 +105,7 @@ class BoxList(ListView):
                 results = SearchQuerySet().filter(BoxNumber=box).order_by('Year','Month','Day')
             if sortBy == '-Date':
                 results = SearchQuerySet().filter(BoxNumber=box).order_by('-Year','-Month','-Day')
-            else:
+            elif 'Date' not in sortBy:
                 results = SearchQuerySet().filter(BoxNumber=box).order_by(sortBy)
             return results
         else:
@@ -126,7 +126,7 @@ class DateList(ListView):
                 results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by('Year','Month','Day')
             if sortBy == '-Date':
                 results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by('-Year','-Month','-Day')
-            else:
+            elif 'Date' not in sortBy:
                 results = SearchQuerySet().filter(Year=year,Month=month, Day=day).order_by(sortBy)
             return results
         else:
