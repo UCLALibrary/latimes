@@ -16,7 +16,10 @@ def homepage(request):
     return render(request, "homepage.html", {})
     
 def advanced_home(request):
-    return render(request, "advanced.html", {}) 
+    return render(request, "advanced_homepage.html", {}) 
+
+def keyword_home(request):
+    return render(request, "keyword_homepage.html", {}) 
 
 def contact(request):
     return render(request, "contact.html", {}) 
