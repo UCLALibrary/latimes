@@ -8,3 +8,5 @@
 {{object.Month}}
 {{object.date}}
 {{object.Quantity}}
+{{object.Photographer}}
+{{object.Location}}

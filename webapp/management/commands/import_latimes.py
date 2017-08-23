@@ -5,35 +5,103 @@ from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card
 
 
-STD_GR_CSV = 'webapp/data/latimes2.csv'
+STD_GR_CSV = 'webapp/data/02_LAT Negatives_1429_Sub_Index_Nei_Z_1977_1983.csv'
 
 class Command(BaseCommand):
 
     help = "Converts Goodreads data from a CSV file and loads it"
 
-    def add_arguments(self, parser):
-        parser.add_argument('csv_path', nargs='?', type=str, default=STD_GR_CSV)
 
     def handle(self, *args, **options):
-        with open(options['csv_path'], 'r') as data:
+        with open(STD_GR_CSV, 'r') as data:
+            x = 0
             reader = csv.DictReader(data)
             for row in reader:
                 try:
                     card = self.create_card(row)
                 except:
                     from pprint import pprint
+                    x +=1
                     pprint(row)
-
+        print("Skipped Rows: %s"%x)
     def create_card(self, row):
-    	card = Card()
-    	card.id = row['ID']
-    	card.Negative = row['Negative']
-    	card.Quantity = row['Quantity']
-    	card.BoxNumber = row['BoxNumber']
-    	card.SubjectName = row['SubjectName']
-    	card.SubjectDescription = row['SubjectDescription']
-    	card.Month = row['Month']
-    	card.Day = row['Day']
-    	card.Year = row['Year']
-    	card.PhotoDescription = row['PhotoDescription']
-    	card.save()
+        card = Card()
+        try:
+            if row['Negative'] is not '':
+                card.Negative = row['Negative']
+        except:
+            pass
+        try:
+            if row['Quanitity'] is not '':
+                card.Quanitity = row['Quantity']
+        except:
+            pass
+        try:
+            if row['BoxNumber'] is not '':
+                card.BoxNumber = row['BoxNumber']
+        except:
+            pass
+        try:
+            if row['SubjectName'] is not '':
+                card.SubjectName = row['SubjectName']
+        except:
+            pass
+        try:
+            if row['SubjectDescrition'] is not '':
+                card.SubjectDescrition = row['SubjectDescrition']
+        except:
+            pass
+        try:
+            if row['Month'] is not '':
+                card.Month = row['Month']
+        except:
+            pass
+        try:
+            if row['Day'] is not '':
+                card.Day = row['Day']
+        except:
+            pass
+        try:
+            if row['Month'] is not '':
+                card.Month = row['Month']
+        except:
+            pass
+        try:
+            if row['Year'] is not '':
+                card.Year = row['Year']
+        except:
+            pass
+        try:
+            if row['PhotoDescription'] is not '':
+                card.PhotoDescription = row['PhotoDescription']
+        except:
+            pass
+        try:
+            if row['PHOTOGRAPHER'] is not '':
+                card.Photographer = row['PHOTOGRAPHER']
+        except:
+            pass
+        try:
+            if row['LOCATION'] is not '':
+                card.Location = row['LOCATION']
+        except:
+            pass
+        try:
+            if row['SUBJECT'] is not '':
+                card.SubjectDescrition = row['SUBJECT']
+        except:
+            pass
+        try:
+            if row['NEG NO'] is not '':
+                card.Negative = row['NEG NO']
+        except:
+            pass
+        try:
+            if row['DATE'] is not '':
+                date = row['DATE'].split('-')
+                card.Year = "19%s"%date[0]
+                card.Month = date[1]
+                card.Day = date[2]
+        except:
+            pass
+        card.save()
