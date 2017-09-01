@@ -53,6 +53,7 @@
         {% endfor %}
 		{% elif results_list %}
         {% for card in results_list %}
+        {{card}}
           <tr>
             <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
