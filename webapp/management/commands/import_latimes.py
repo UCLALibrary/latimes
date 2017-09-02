@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card
 
 
-STD_GR_CSV = 'webapp/data/19_LATimes_Archive_1989_1990-F_O-xlsx-csv-csv_with_box-csv.csv'
+STD_GR_CSV = 'webapp/data/14_LATimes_Archive_Name_and_Subject_Index_1987_1988_A_L-xlsx-csv-csv_with_box-csv.csv'
 
 class Command(BaseCommand):
 
@@ -88,7 +88,7 @@ class Command(BaseCommand):
             pass
         try:
             if row['SUBJECT'] is not '':
-                card.SubjectDescrition = row['SUBJECT']
+                card.SubjectDescription = row['SUBJECT']
         except:
             pass
         try:
@@ -103,9 +103,19 @@ class Command(BaseCommand):
                 card.Month = date[1]
                 card.Day = date[2]
             elif row['DATE'] == 'UNDATED':
-            	card.Year = 8888
+                card.Year = 8888
                 card.Month = 88
                 card.Day = 88
+        except:
+            pass
+        try:
+            if row['Box'] is not '':
+                card.BoxNumber = row['Box']
+        except:
+            pass
+        try:
+            if row['NAME/ SUBJECT INDEX'] is not '':
+                card.SubjectDescription = row['NAME/ SUBJECT INDEX']
         except:
             pass
         card.save()

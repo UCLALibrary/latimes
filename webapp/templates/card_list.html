@@ -46,6 +46,7 @@
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
           <td><a href="/box?box={{card.BoxNumber}}">{{card.BoxNumber}}</a></td>
+          {% for box in card.split_box %} <a href="/box?box={{card.box}}">{{card.box}} {% endfor %}
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
@@ -53,9 +54,8 @@
         {% endfor %}
 		{% elif results_list %}
         {% for card in results_list %}
-        {{card}}
           <tr>
-            <td>{{card.SubjectName}}</td>
+          <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
           <td><a href="/box?box={{card.BoxNumber}}">{{card.BoxNumber}}</a></td>

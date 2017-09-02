@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import validate_comma_separated_integer_list
 class Card(models.Model):
     MONTHS = (
     (1, "January"),
@@ -21,7 +21,7 @@ class Card(models.Model):
     Quantity = models.IntegerField(null=True)
     Photographer = models.CharField(null=True, max_length=1000, db_index=True)
     Location = models.CharField(null=True, max_length=1000, db_index=True)
-    BoxNumber = models.IntegerField(null=True, db_index=True)
+    BoxNumber = models.CharField(validators=[validate_comma_separated_integer_list], null=True, db_index=True, max_length=1000)
     SubjectName = models.CharField(null=True, max_length=1000, db_index=True)
     SubjectDescription = models.CharField(null=True, max_length=10000, db_index=True)
     Month = models.IntegerField(null=True, choices=MONTHS)
@@ -30,6 +30,13 @@ class Card(models.Model):
     #NoDate = models.CharField(null=True, max_length=10)
     PhotoDescription = models.CharField(null=True, max_length=10000, db_index=True)
     
+    @property
+    def split_box(self):
+    	if "," in self.BoxNumber:
+    		box = self.BoxNumber.replace(" ", "")
+    		return "{}".format(self.BoxNumber.split(","))
+    	else:
+    		return "{}".format(self.BoxNumber)
     @property
     def date(self):
         if self.Day == 88 and self.Month == 88 and self.Year == 8888:
@@ -41,5 +48,8 @@ class Card(models.Model):
         else:
             return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
 
+   
+    		
     def __str__(self):
         return self.SubjectName
+    
