@@ -1,18 +1,17 @@
 from haystack import indexes
 from haystack.fields import CharField
 
-from .models import Card
+from .models import Card, BoxNumb
 
 class CardIndex(indexes.SearchIndex, indexes.Indexable):
   text = indexes.CharField(
-  document=True, use_template=True,
-  template_name='/Users/cliccuser/latimes/webapp/templates/search/indexes/card_text.txt')
+  document=True, use_template=True)
   SubjectName = indexes.CharField(model_attr='SubjectName', faceted=True, null=True)
   SubjectDescription = indexes.CharField(model_attr="SubjectDescription", faceted=True, null=True)
   PhotoDescription = indexes.CharField(model_attr="PhotoDescription", faceted=True, null=True)
   Photographer = indexes.CharField(model_attr="Photographer", faceted=True, null=True)
   Location = indexes.CharField(model_attr="Location", faceted=True, null=True)
-  BoxNumber = indexes.CharField(model_attr="BoxNumber", faceted=True, null=True)
+  BoxNumber = indexes.MultiValueField(indexed=True, stored=True)
   Negative = indexes.CharField(model_attr="Negative", faceted=True, null=True)
   Year = indexes.IntegerField(model_attr="Year", faceted=True, null=True)
   Day = indexes.IntegerField(model_attr="Day", faceted=True, null=True)
@@ -23,4 +22,6 @@ class CardIndex(indexes.SearchIndex, indexes.Indexable):
   
   def get_model(self):
     return Card
+  def prepare_BoxNumber(self, object):
+  	return [BoxNumber.box for BoxNumber in object.BoxNumber.all()]
 

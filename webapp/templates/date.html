@@ -22,7 +22,7 @@
           <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
-          <td><a href='/box?box={{card.BoxNumber}}'>{{card.BoxNumber}}</a></td>
+          <td>{% for box in card.BoxNumber%}<a href="/box?box={{box}}">{{box}}</a>{% if not forloop.last %}, {% endif %}{%endfor%}</td>
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td>{{card.date}}</td>
@@ -34,7 +34,7 @@
             <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
-          <td><a href="/box?box={{card.BoxNumber}}">{{card.BoxNumber}}</a></td>
+          <td>{% for box in card.BoxNumber%}<a href="/box?box={{box}}">{{box}}</a>{% if not forloop.last %}, {% endif %}{%endfor%}</td>
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td>{{card.date}}</td>

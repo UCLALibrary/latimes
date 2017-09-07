@@ -20,7 +20,7 @@
           <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
-          <td>{{card.BoxNumber}}</td>
+          <td>{% for box in card.BoxNumber%}{{box}}{% if not forloop.last %}, {% endif %}{%endfor%}</td>
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td><a href ="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
@@ -32,7 +32,7 @@
             <td>{{card.SubjectName}}</td>
           <td>{{card.SubjectDescription}}</td>
           <td>{{card.PhotoDescription}}</td>
-          <td>{{card.BoxNumber}}</td>
+          <td>{% for box in card.BoxNumber%}{{box}}{% if not forloop.last %}, {% endif %}{%endfor%}</td>
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>

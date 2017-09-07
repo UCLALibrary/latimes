@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import validate_comma_separated_integer_list
+class BoxNumb(models.Model):
+	box = models.CharField(max_length=30)
 class Card(models.Model):
     MONTHS = (
     (1, "January"),
@@ -21,7 +23,7 @@ class Card(models.Model):
     Quantity = models.IntegerField(null=True)
     Photographer = models.CharField(null=True, max_length=1000, db_index=True)
     Location = models.CharField(null=True, max_length=1000, db_index=True)
-    BoxNumber = models.CharField(validators=[validate_comma_separated_integer_list], null=True, db_index=True, max_length=1000)
+    BoxNumber = models.ManyToManyField(BoxNumb)
     SubjectName = models.CharField(null=True, max_length=1000, db_index=True)
     SubjectDescription = models.CharField(null=True, max_length=10000, db_index=True)
     Month = models.IntegerField(null=True, choices=MONTHS)

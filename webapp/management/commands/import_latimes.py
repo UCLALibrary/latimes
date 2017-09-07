@@ -2,10 +2,10 @@ import csv
 import codecs
 
 from django.core.management.base import BaseCommand, CommandError
-from webapp.models import Card
+from webapp.models import Card, BoxNumb
 
 
-STD_GR_CSV = 'webapp/data/14_LATimes_Archive_Name_and_Subject_Index_1987_1988_A_L-xlsx-csv-csv_with_box-csv.csv'
+STD_GR_CSV = 'webapp/data/01_LAT-Negatives_1429_Sub-Index_A_Genealogical_1977_1983-xls-csv-csv_with_box-csv.csv'
 
 class Command(BaseCommand):
 
@@ -110,12 +110,38 @@ class Command(BaseCommand):
             pass
         try:
             if row['Box'] is not '':
-                card.BoxNumber = row['Box']
+                if "," in row['Box']:
+                    boxes = row['Box'].split(",")
+                    for box in boxes:
+                        card.save()
+                        box = box.replace(" ", "")
+                        BOX = BoxNumb()
+                        BOX.box = box
+                        BOX.save()
+                        card.BoxNumber.add(BOX)
+                        card.save()
+                else:
+                    BOX = BoxNumb()
+                    BOX.box = row['Box']
+                    BOX.save()
+                    card.save()
+                    card.BoxNumber.add(BOX)
+                    card.save()
         except:
             pass
         try:
             if row['NAME/ SUBJECT INDEX'] is not '':
                 card.SubjectDescription = row['NAME/ SUBJECT INDEX']
+        except:
+            pass
+        try:
+            if row['NAME / SUBJECT INDEX'] is not '':
+                card.SubjectDescription = row['NAME / SUBJECT INDEX']
+        except:
+            pass
+        try:
+            if row['NAME /SUBJECT INDEX'] is not '':
+                card.SubjectDescription = row['NAME /SUBJECT INDEX']
         except:
             pass
         card.save()
