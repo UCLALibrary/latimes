@@ -1,0 +1,14 @@
+{{object.SubjectName}}
+{{object.SubjectDescription}}
+{{object.PhotoDescription}}
+{{object.Negative}}
+{{object.Year}}
+{{object.Day}}
+{{object.Month}}
+{{object.date}}
+{{object.Quantity}}
+{{object.Photographer}}
+{{object.Location}}
+{% for box in object.BoxNumber.all %}
+    {{ box.box }}
+{% endfor %}
