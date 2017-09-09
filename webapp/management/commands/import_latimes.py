@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card, BoxNumb
 
 
-STD_GR_CSV = 'webapp/data/01_LAT-Negatives_1429_Sub-Index_A_Genealogical_1977_1983-xls-csv-csv_with_box-csv.csv'
+STD_GR_CSV = 'webapp/data/05_LAT-Negatives_1429_Subject_Index_1984-xls.csv.csv_with_box.csv'
 
 class Command(BaseCommand):
 

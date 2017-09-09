@@ -21,7 +21,7 @@ class FacetedCardSearchForm(FacetedSearchForm):
                 else:
                     query = u''
                 query += u'"%s"' % sqs.query.clean(BoxNumber)
-            sqs = sqs.narrow(u'BoxNumber_exact:%s' % query)
+            sqs = sqs.narrow(u'BoxNumber:%s' % query)
         if self.Negative:
             query = None
             for Negative in self.Negative:
