@@ -1,28 +1,32 @@
 import csv
 import codecs
+import os
 
 from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card, BoxNumb
 
 
-STD_GR_CSV = 'webapp/data/05_LAT-Negatives_1429_Subject_Index_1984-xls.csv.csv_with_box.csv'
+filepath = 'webapp/data/'
 
 class Command(BaseCommand):
 
     help = "Converts Goodreads data from a CSV file and loads it"
-
+    
 
     def handle(self, *args, **options):
-        with open(STD_GR_CSV, 'r') as data:
-            x = 0
-            reader = csv.DictReader(data)
-            for row in reader:
-                try:
-                    card = self.create_card(row)
-                except:
-                    from pprint import pprint
-                    x +=1
-                    pprint(row)
+        for file in os.listdir(filepath): 
+            if file.endswith(".csv"):
+                print(file)
+                with open(os.path.join(filepath, file), 'r') as data:
+                    x = 0
+                    reader = csv.DictReader(data)
+                    for row in reader:
+                        try:
+                            card = self.create_card(row)
+                        except:
+                            from pprint import pprint
+                            x +=1
+                            pprint(row)
         print("Skipped Rows: %s"%x)
     def create_card(self, row):
         card = Card()

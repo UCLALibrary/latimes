@@ -23,7 +23,7 @@
         {% if facets.fields.BoxNumber %}
         <dt>Filter by BoxNumber</dt>
         {% for BoxNumber in facets.fields.BoxNumber %}
-        {% if BoxNumber.1 > 1 %}
+        {% if BoxNumber.1 > 0 %}
         <dd>
         <input class="facet" id="{{BoxNumber.0|cut:' '}}" type="checkbox" name="BoxNumber" value="{{ BoxNumber.0 }}" 
         data-toggle="toggle" /> {{ BoxNumber.0 }} ({{ BoxNumber.1 }})
@@ -40,7 +40,7 @@
         {% if facets.fields.Negative %}
         <dt>Filter by Negative</dt>
         {% for Negative in facets.fields.Negative %}
-        {% if Negative.1 > 1 %}
+        {% if Negative.1 > 0 %}
         <dd>
         <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}" 
         data-toggle="toggle" /> {{ Negative.0 }} ({{ Negative.1 }})
@@ -57,7 +57,7 @@
         {% if facets.fields.Year %}
         <dt>Filter by Year</dt>
         {% for Year in facets.fields.Year %}
-        {% if Year.1 > 1 %}
+        {% if Year.1 > 0 %}
         <dd>
         <input class="facet" id="{{Year.0|cut:' '}}" type="checkbox" name="Year" value="{{ Year.0 }}" /> {{ Year.0 }} ({{ Year.1 }})
         </dd>
@@ -96,7 +96,7 @@
 <td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
 <td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>
 <td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>
-<td style="width:185px;">Box Number:</td><td><a href="/box?box={{result.object.BoxNumber}}">{{result.object.BoxNumber}}</td></tr>
+<td style="width:185px;">Box Number:</td><td>{% for box in result.object.BoxNumber.all %}<a href="/box?box={{box.box}}">{{box.box}}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
 <td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
 <td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>
 <td style="width:185px;">Date:</td><td><a href="/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>
