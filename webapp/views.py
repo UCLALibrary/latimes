@@ -24,6 +24,9 @@ def keyword_home(request):
 def contact(request):
     return render(request, "contact.html", {}) 
 
+def request(request):
+    return render(request, "request.html", {}) 
+
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(
         content_auto=request.GET.get(

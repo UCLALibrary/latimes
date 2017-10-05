@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^find', FacetedSearchView.as_view(), name='haystack_search'),
     url(r'^browse', CardList.as_view(), name='card_list'),
     url(r'^box', BoxList.as_view(), name='box_list'),
-    url(r'^contact', webapp_views.contact, name='contact')
+    url(r'^contact', webapp_views.contact, name='contact'),
+    url(r'^request', webapp_views.request, name='request')
 ]
