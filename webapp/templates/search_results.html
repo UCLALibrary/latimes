@@ -96,6 +96,8 @@
 <td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
 <td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>
 <td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>
+<td style="width:185px;">Photographer:</td><td>{{result.object.Photographer}}</td></tr>
+<td style="width:185px;">Location:</td><td>{{result.object.Location}}</td></tr>
 <td style="width:185px;">Box Number:</td><td>{% for box in result.object.BoxNumber.all %}<a href="/box?box={{box.box}}">{{box.box}}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
 <td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
 <td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>

@@ -116,21 +116,35 @@ class Command(BaseCommand):
             if row['Box'] is not '':
                 if "," in row['Box']:
                     boxes = row['Box'].split(",")
+                    boxadd = []
                     for box in boxes:
-                        card.save()
                         box = box.replace(" ", "")
+                        try:
+                            boxobj = BoxNumb.objects.filter(box=box)[0]
+                            card.save()
+                            card.BoxNumber.add(boxobj)
+                            card.save()
+                        except:
+                            box = box.replace(" ", "")
+                            BOX = BoxNumb()
+                            BOX.box = box
+                            BOX.save()
+                            card.save()
+                            card.BoxNumber.add(BOX)
+                            card.save()
+                else:
+                    if BoxNumb.objects.filter(box=row['Box']).exists():
+                        for boxobj in BoxNumb.objects.filter(box=row['Box']):
+                            card.save()
+                            card.BoxNumber.add(boxobj)
+                            card.save()
+                    else:
                         BOX = BoxNumb()
-                        BOX.box = box
+                        BOX.box = row['Box']
                         BOX.save()
+                        card.save()
                         card.BoxNumber.add(BOX)
                         card.save()
-                else:
-                    BOX = BoxNumb()
-                    BOX.box = row['Box']
-                    BOX.save()
-                    card.save()
-                    card.BoxNumber.add(BOX)
-                    card.save()
         except:
             pass
         try:
