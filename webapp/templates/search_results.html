@@ -32,12 +32,12 @@
         {% endfor %}
         {% endif %}
         </dl>
+        <button onclick="myFunction()">Show More</button>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
         </div><br><br>
-        <button onclick="myFunction()">Try it</button>
 
-        <dl id='myDIV'>
+        <dl id='myDIV' class=hidden>
         {% if facets.fields.BoxNumber %}
         <dt>Filter by BoxNumber</dt>
         {% for BoxNumber in facets.fields.BoxNumber %}
