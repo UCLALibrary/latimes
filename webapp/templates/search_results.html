@@ -29,7 +29,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.BoxNumber|length > 10 %}<a id='boxlink'>Show More</a>{% endif %}
+        {% if facets.fields.BoxNumber|length > 10 %}<a id='boxlink'>Show More ⌄</a>{% endif %}
         <dl id='boxnumber' class='hidden'>
         {% for BoxNumber in facets.fields.BoxNumber %}
         {% if forloop.counter >= 10 %}
@@ -56,7 +56,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.BoxNumber|length > 10 %}<a id='neglink'>Show More</a>{% endif %}
+        {% if facets.fields.Negative|length > 10 %}<a id='neglink'>Show More ⌄</a>{% endif %}
         <dl id='negative' class='hidden'>
         {% for Negative in facets.fields.Negative %}
         {% if forloop.counter >= 10 %}
@@ -83,7 +83,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.BoxNumber|length > 10 %}<a id='yearlink'>Show More</a>{% endif %}
+        {% if facets.fields.Year|length > 10 %}<a id='yearlink'>Show More ⌄ ⌄</a>{% endif %}
         <dl id='year' class='hidden'>
         {% for Year in facets.fields.Year %}
         {% if forloop.counter >= 10 %}
@@ -110,7 +110,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.BoxNumber|length > 10 %}<a id='photolink'>Show More</a>{% endif %}
+        {% if facets.fields.Photographer|length > 10 %}<a id='photolink'>Show More ⌄</a>{% endif %}
         <dl id='photographer' class='hidden'>
         {% for Photographer in facets.fields.Photographer %}
         {% if forloop.counter >= 10 %}
@@ -137,7 +137,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.BoxNumber|length > 10 %}<a id='loclink'>Show More</a>{% endif %}
+        {% if facets.fields.Location|length > 10 %}<a id='loclink'>Show More ⌄</a>{% endif %}
         <dl id='location' class='hidden'>
         {% for Location in facets.fields.Location %}
         {% if forloop.counter >= 10 %}

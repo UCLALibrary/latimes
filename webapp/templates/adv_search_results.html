@@ -33,7 +33,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.Negative|length > 10 %}<a id='neglink'>Show More</a>{% endif %}
+        {% if facets.fields.Negative|length > 10 %}<a id='neglink'>Show More ⌄</a>{% endif %}
         <dl id='negative' class='hidden'>
         {% for Negative in facets.fields.Negative %}
         {% if forloop.counter >= 10 %}
@@ -60,7 +60,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.SubjectName|length > 10 %}<a id='namelink'>Show More</a>{% endif %}
+        {% if facets.fields.SubjectName|length > 10 %}<a id='namelink'>Show More ⌄</a>{% endif %}
         <dl id='subname' class='hidden'>
         {% for SubjectName in facets.fields.SubjectName %}
         {% if forloop.counter >= 10 %}
@@ -87,7 +87,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.SubjectDescription|length > 10 %}<a id='desclink'>Show More</a>{% endif %}
+        {% if facets.fields.SubjectDescription|length > 10 %}<a id='desclink'>Show More ⌄</a>{% endif %}
         <dl id='subdesc' class='hidden'>
         {% for SubjectDescription in facets.fields.SubjectDescription %}
         {% if forloop.counter >= 10 %}
@@ -114,7 +114,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.Photographer|length > 10 %}<a id='photolink'>Show More</a>{% endif %}
+        {% if facets.fields.Photographer|length > 10 %}<a id='photolink'>Show More ⌄</a>{% endif %}
         <dl id='photographer' class='hidden'>
         {% for Photographer in facets.fields.Photographer %}
         {% if forloop.counter >= 10 %}
@@ -141,7 +141,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.Location|length > 10 %}<a id='loclink'>Show More</a>{% endif %}
+        {% if facets.fields.Location|length > 10 %}<a id='loclink'>Show More ⌄</a>{% endif %}
         <dl id='location' class='hidden'>
         {% for Location in facets.fields.Location %}
         {% if forloop.counter >= 10 %}
