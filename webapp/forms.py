@@ -8,6 +8,8 @@ class FacetedCardSearchForm(FacetedSearchForm):
         self.Year = data.get('Year', [])
         self.BoxNumber = data.get('BoxNumber', [])
         self.Negative = data.get('Negative', [])
+        self.Photographer = data.get('Photographer', [])
+        self.Location = data.get('Location', [])
         super(FacetedCardSearchForm, self).__init__(*args, **kwargs)
         
 
@@ -40,6 +42,25 @@ class FacetedCardSearchForm(FacetedSearchForm):
                     query = u''
                 query += u'"%s"' % sqs.query.clean(Year)
             sqs = sqs.narrow(u'Year_exact:%s' % query)
+        if self.Photographer:
+            query = None
+            for Photographer in self.Photographer:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(Photographer)
+            sqs = sqs.narrow(u'Photographer_exact:%s' % query)
+        if self.Location:
+            query = None
+            for Location in self.Location:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(Location)
+            sqs = sqs.narrow(u'Location_exact:%s' % query)
+            
         return sqs
 
 class FacetedCardAdvancedSearchForm(FacetedSearchForm):
@@ -49,6 +70,8 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
         self.SubjectName = data.get('SubjectName', [])
         self.Negative = data.get('Negative', [])
         self.SubjectDescription = data.get('SubjectDescription', [])
+        self.Photographer = data.get('Photographer', [])
+        self.Location = data.get('Location', [])
         super(FacetedCardAdvancedSearchForm, self).__init__(*args, **kwargs)
         
 
@@ -86,6 +109,24 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
                     query = u''
                 query += u'"%s"' % sqs.query.clean(SubjectDescription)
             sqs = sqs.narrow(u'SubjectDescription_exact:%s' % query)
+        if self.Photographer:
+            query = None
+            for Photographer in self.Photographer:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(Photographer)
+            sqs = sqs.narrow(u'Photographer_exact:%s' % query)
+        if self.Location:
+            query = None
+            for Location in self.Location:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(Location)
+            sqs = sqs.narrow(u'Location_exact:%s' % query)
         return sqs
 
 class SearchForm(forms.Form):

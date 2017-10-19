@@ -23,57 +23,142 @@
 {% if  page_obj.object_list %}
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 	<h3>Filters</h3>
-        
-        <dl>
-        {% if facets.fields.Negative %}
+		{% if facets.fields.Negative %}
         <dt>Filter by Negative</dt>
         {% for Negative in facets.fields.Negative %}
-        {% if Negative.1 > 0 %}
+        {% if forloop.counter < 10 %}
         <dd>
-        <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}" 
+        <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}"
         data-toggle="toggle" /> {{ Negative.0 }} ({{ Negative.1 }})
         </dd>
         {% endif %}
         {% endfor %}
-        </dl>
-        <div>
-        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return advancedFaceting();" />
-        </div><br><br>
-        {% endif %}
-         <dl>
-        {% if facets.fields.SubjectDescription %}
-        <dt>Filter by Subject Description</dt>
-        {% for SubjectDescription in facets.fields.SubjectDescription %}
-        {% if SubjectDescription.1 > 0 and SubjectDescription.0|length > 0%}
+        {% if facets.fields.Negative|length > 10 %}<a id='neglink'>Show More</a>{% endif %}
+        <dl id='negative' class='hidden'>
+        {% for Negative in facets.fields.Negative %}
+        {% if forloop.counter >= 10 %}
         <dd>
-        <input class="facet" id="{{SubjectDescription.0|cut:' '}}" type="checkbox" name="SubjectDescription" value="{{ SubjectDescription.0 }}" 
-        data-toggle="toggle" /> {{ SubjectDescription.0 }} ({{ SubjectDescription.1 }})
+        <input class="facet" id="{{Negative.0|cut:' '}}" type="checkbox" name="Negative" value="{{ Negative.0 }}"
+        data-toggle="toggle" /> {{ Negative.0 }} ({{ Negative.1 }})
         </dd>
         {% endif %}
         {% endfor %}
-        
+        <a id='neglink2' class='hidden'>Hide</a>
         </dl>
         <div>
-        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return advancedFaceting();" />
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
         </div><br><br>
         {% endif %}
-         <dl>
+
         {% if facets.fields.SubjectName %}
-        <dt>Filter by Subject Name</dt>
+        <dt>Filter by SubjectName</dt>
         {% for SubjectName in facets.fields.SubjectName %}
-        {% if SubjectName.1 > 0  and SubjectName.0|length > 0 %}
+        {% if forloop.counter < 10 %}
         <dd>
-        <input class="facet" id="{{SubjectName.0|cut:' '}}" type="checkbox" name="SubjectName" value="{{ SubjectName.0 }}" 
+        <input class="facet" id="{{SubjectName.0|cut:' '}}" type="checkbox" name="SubjectName" value="{{ SubjectName.0 }}"
         data-toggle="toggle" /> {{ SubjectName.0 }} ({{ SubjectName.1 }})
         </dd>
         {% endif %}
         {% endfor %}
+        {% if facets.fields.SubjectName|length > 10 %}<a id='namelink'>Show More</a>{% endif %}
+        <dl id='subname' class='hidden'>
+        {% for SubjectName in facets.fields.SubjectName %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{SubjectName.0|cut:' '}}" type="checkbox" name="SubjectName" value="{{ SubjectName.0 }}"
+        data-toggle="toggle" /> {{ SubjectName.0 }} ({{ SubjectName.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='namelink2' class='hidden'>Hide</a>
         </dl>
         <div>
-        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return advancedFaceting();" />
-        </div><br><br>        {% endif %}
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+		{% endif %}
 
-          </div>
+        {% if facets.fields.SubjectDescription %}
+        <dt>Filter by SubjectDescription</dt>
+        {% for SubjectDescription in facets.fields.SubjectDescription %}
+        {% if forloop.counter < 10 %}
+        <dd>
+        <input class="facet" id="{{SubjectDescription.0|cut:' '}}" type="checkbox" name="SubjectDescription" value="{{ SubjectDescription.0 }}"
+        data-toggle="toggle" /> {{ SubjectDescription.0 }} ({{ SubjectDescription.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% if facets.fields.SubjectDescription|length > 10 %}<a id='desclink'>Show More</a>{% endif %}
+        <dl id='subdesc' class='hidden'>
+        {% for SubjectDescription in facets.fields.SubjectDescription %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{SubjectDescription.0|cut:' '}}" type="checkbox" name="SubjectDescription" value="{{ SubjectDescription.0 }}"
+        data-toggle="toggle" /> {{ SubjectDescription.0 }} ({{ SubjectDescription.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='desclink2' class='hidden'>Hide</a>
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        {% endif %}
+
+        {% if facets.fields.Photographer %}
+        <dt>Filter by Photographer</dt>
+        {% for Photographer in facets.fields.Photographer %}
+        {% if forloop.counter < 10 %}
+        <dd>
+        <input class="facet" id="{{Photographer.0|cut:' '}}" type="checkbox" name="Photographer" value="{{ Photographer.0 }}"
+        data-toggle="toggle" /> {{ Photographer.0 }} ({{ Photographer.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% if facets.fields.Photographer|length > 10 %}<a id='photolink'>Show More</a>{% endif %}
+        <dl id='photographer' class='hidden'>
+        {% for Photographer in facets.fields.Photographer %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{Photographer.0|cut:' '}}" type="checkbox" name="Photographer" value="{{ Photographer.0 }}"
+        data-toggle="toggle" /> {{ Photographer.0 }} ({{ Photographer.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='photolink2' class='hidden'>Hide</a>
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        {% endif %}
+        
+        {% if facets.fields.Location %}
+        <dt>Filter by Location</dt>
+        {% for Location in facets.fields.Location %}
+        {% if forloop.counter < 10 %}
+        <dd>
+        <input class="facet" id="{{Location.0|cut:' '}}" type="checkbox" name="Location" value="{{ Location.0 }}"
+        data-toggle="toggle" /> {{ Location.0 }} ({{ Location.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% if facets.fields.Location|length > 10 %}<a id='loclink'>Show More</a>{% endif %}
+        <dl id='location' class='hidden'>
+        {% for Location in facets.fields.Location %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{Location.0|cut:' '}}" type="checkbox" name="Location" value="{{ Location.0 }}"
+        data-toggle="toggle" /> {{ Location.0 }} ({{ Location.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='loclink2' class='hidden'>Hide</a>
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        {% endif %}
+
+</div>
 {% endif %}
 	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <div class="row">
@@ -155,5 +240,78 @@ form {
     text-align: center;
 }
 
-</style>  
+</style> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#namelink").click(function(){
+    	$('#namelink').toggleClass("hidden");
+    	$('#namelink2').toggleClass("hidden");
+        $('#subname').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#namelink2").click(function(){
+    	$('#namelink').toggleClass("hidden");
+    	$('#namelink2').toggleClass("hidden");
+        $('#subname').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#neglink").click(function(){
+    	$('#neglink').toggleClass("hidden");
+    	$('#neglink2').toggleClass("hidden");
+        $('#negative').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#neglink2").click(function(){
+    	$('#neglink').toggleClass("hidden");
+    	$('#neglink2').toggleClass("hidden");
+        $('#negative').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#desclink").click(function(){
+    	$('#desclink').toggleClass("hidden");
+    	$('#desclink2').toggleClass("hidden");
+        $('#subdesc').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#desclink2").click(function(){
+    	$('#desclink').toggleClass("hidden");
+    	$('#desclink2').toggleClass("hidden");
+        $('#subdesc').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#photolink").click(function(){
+    	$('#photolink').toggleClass("hidden");
+    	$('#photolink2').toggleClass("hidden");
+        $('#photographer').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#photolink2").click(function(){
+    	$('#photolink').toggleClass("hidden");
+    	$('#photolink2').toggleClass("hidden");
+        $('#photographer').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#loclink").click(function(){
+    	$('#loclink').toggleClass("hidden");
+    	$('#loclink2').toggleClass("hidden");
+        $('#location').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#loclink2").click(function(){
+    	$('#loclink').toggleClass("hidden");
+    	$('#loclink2').toggleClass("hidden");
+        $('#location').toggleClass("hidden");
+    });
+});
+</script>  
 {% endblock %}
