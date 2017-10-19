@@ -41,11 +41,11 @@ class Card(models.Model):
     		return "{}".format(self.BoxNumber)
     @property
     def date(self):
-        if self.Day == 88 and self.Month == 88 and self.Year == 8888:
+        if self.Day == 88 or self.Day == 0 and self.Month == 88 and self.Year == 8888:
             return "No Date Avaliable"
-        if self.Day == 88 and self.Month == 88 and self.Year != 8888:
+        if self.Day == 88 or self.Day == 0 and self.Month == 88 and self.Year != 8888:
             return "{}".format(self.Year)
-        if self.Day == 88 and self.Month != 88 and self.Year != 8888:
+        if self.Day == 88 or self.Day == 0 and self.Month != 88 and self.Year != 8888:
             return "{} {}".format(self.Month, self.Year)
         else:
             return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
