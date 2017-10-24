@@ -39,7 +39,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        <a id='boxlink2' class='hidden'>Hide</a>
+        <a id='boxlink2' class='hidden'>Hide ⌃</a>
         </dl>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
@@ -66,7 +66,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        <a id='neglink2' class='hidden'>Hide</a>
+        <a id='neglink2' class='hidden'>Hide ⌃</a>
         </dl>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
@@ -83,7 +83,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        {% if facets.fields.Year|length > 10 %}<a id='yearlink'>Show More ⌄ ⌄</a>{% endif %}
+        {% if facets.fields.Year|length > 10 %}<a id='yearlink'>Show More ⌄</a>{% endif %}
         <dl id='year' class='hidden'>
         {% for Year in facets.fields.Year %}
         {% if forloop.counter >= 10 %}
@@ -93,7 +93,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        <a id='yearlink2' class='hidden'>Hide</a>
+        <a id='yearlink2' class='hidden'>Hide ⌃</a>
         </dl>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
@@ -120,7 +120,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        <a id='photolink2' class='hidden'>Hide</a>
+        <a id='photolink2' class='hidden'>Hide ⌃</a>
         </dl>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
@@ -147,7 +147,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        <a id='loclink2' class='hidden'>Hide</a>
+        <a id='loclink2' class='hidden'>Hide ⌃</a>
         </dl>
         <div>
         <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
