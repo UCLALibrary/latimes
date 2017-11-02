@@ -30,11 +30,7 @@ function getParameterByName(name, url) {
 
 
 function onFacetChangeApplied(){
-	var url = window.location.href;
-	if (url.includes("page")) {
-		var newurl = url.split("&page=");
-		url = newurl[0]
-	}
+	var url = window.location.href.split("&")[0];
 	$('input:checkbox.facet').each(function () {
     	var sThisVal = (this.checked ? $(this).val() : null);
         var sThisName = (this.checked ? $(this).attr('name') : null);
@@ -48,11 +44,7 @@ function onFacetChangeApplied(){
 }    
 
 function advancedFaceting(){
-		var url = window.location.href;
-	if (url.includes("page")) {
-		var newurl = url.split("&page=");
-		url = newurl[0]
-	}
+	var url = window.location.href.split("&")[0];
 	$('input:checkbox.facet').each(function () {
     	var sThisVal = (this.checked ? $(this).val() : null);
         var sThisName = (this.checked ? $(this).attr('name') : null);
