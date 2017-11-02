@@ -77,5 +77,6 @@ $( document ).ready(function() {
 		key = decodeURIComponent(value).replace(/\s/g,'');
 		if($('#'+id).attr('name') == key){
 		$('#'+id).attr('checked', 'checked');
+		}
 	}
 });
