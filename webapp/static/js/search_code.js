@@ -69,13 +69,13 @@ function getQueryParams(){
     return vars;
 }
 
-
 $( document ).ready(function() {
 	var all_params = getQueryParams();
 	console.log();
 	$.each( all_params, function( key, value ) {
 		id = decodeURIComponent(key).replace(/\s/g,'');
+		key = decodeURIComponent(value).replace(/\s/g,'');
+		if($('#'+id).attr('name') == key){
 		$('#'+id).attr('checked', 'checked');
-		});
-	
+	}
 });
