@@ -42,7 +42,9 @@ function onFacetChangeApplied(){
 }    
 
 function advancedFaceting(){
-	var url = window.location.href.split("&")[0];
+	var url = window.location.href.split("&")[0]
+	url += '&' + window.location.href.split("&")[1] 
+	url += '&' + window.location.href.split("&")[2];
 	$('input:checkbox.facet').each(function () {
     	var sThisVal = (this.checked ? $(this).val() : null);
         var sThisName = (this.checked ? $(this).attr('name') : null);
