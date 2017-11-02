@@ -27,8 +27,6 @@ function getParameterByName(name, url) {
 }
 
 
-
-
 function onFacetChangeApplied(){
 	var url = window.location.href.split("&")[0];
 	$('input:checkbox.facet').each(function () {
@@ -57,6 +55,11 @@ function advancedFaceting(){
 	return true;
 }    
 
+function pagination(page){
+var url = window.location.href.split("&page")[0];
+url += '&page=' + page
+location.href = url
+}
 
 function getQueryParams(){
     var vars = {}, hash;
@@ -81,3 +84,4 @@ $( document ).ready(function() {
 		});
 	
 });
+
