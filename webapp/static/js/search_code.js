@@ -78,5 +78,6 @@ $( document ).ready(function() {
 		if($('#'+id).attr('name') == key){
 		$('#'+id).attr('checked', 'checked');
 		}
-	}
+		});
+	
 });
