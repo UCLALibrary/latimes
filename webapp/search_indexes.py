@@ -18,6 +18,7 @@ class CardIndex(indexes.SearchIndex, indexes.Indexable):
   Month = indexes.IntegerField(model_attr="Month", faceted=True, null=True)
   date = indexes.CharField(model_attr="date", faceted=True, null=True)
   Quantity = indexes.IntegerField(model_attr="Quantity", faceted=True, null=True)
+  DateCombine = indexes.DateField(model_attr="DateCombine", faceted=True, null=True)
   suggestions = indexes.FacetCharField()
   
   def get_model(self):

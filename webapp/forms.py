@@ -10,6 +10,7 @@ class FacetedCardSearchForm(FacetedSearchForm):
         self.Negative = data.get('Negative', [])
         self.Photographer = data.get('Photographer', [])
         self.Location = data.get('Location', [])
+        self.DateCombined = data.get('DateCombined', [])
         super(FacetedCardSearchForm, self).__init__(*args, **kwargs)
         
 
@@ -60,7 +61,15 @@ class FacetedCardSearchForm(FacetedSearchForm):
                     query = u''
                 query += u'"%s"' % sqs.query.clean(Location)
             sqs = sqs.narrow(u'Location_exact:%s' % query)
-            
+        if self.DateCombined:
+            query = None
+            for DateCombined in self.DateCombined:
+                if query:
+                    query += u' OR '
+                else:
+                    query = u''
+                query += u'"%s"' % sqs.query.clean(DateCombined)
+            sqs = sqs.narrow(u'DateCombined_exact:%s' % query)
         return sqs
 
 class FacetedCardAdvancedSearchForm(FacetedSearchForm):
@@ -80,7 +89,12 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
         if self.data['boxnumb']:
         	sqs = sqs.filter(BoxNumber = self.data['boxnumb'])
         if self.data['year']:
-        	sqs = sqs.filter(Year = self.data['year'])
+            if "-" in self.data['year']:
+                year1, year2 = self.data['year'].split("-")
+                print(int(year1))
+                sqs = sqs.filter(Year__range=[int(year1), int(year2)])
+            else:
+        	   sqs = sqs.filter(Year = self.data['year'])
         if self.Negative:
             query = None
             for Negative in self.Negative:

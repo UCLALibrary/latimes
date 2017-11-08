@@ -29,6 +29,7 @@ class Card(models.Model):
     Month = models.IntegerField(null=True, choices=MONTHS)
     Day = models.IntegerField(null=True)
     Year = models.IntegerField(db_index=True, null=True)
+    DateCombine = models.DateField(db_index=True, null=True)
     #NoDate = models.CharField(null=True, max_length=10)
     PhotoDescription = models.CharField(null=True, max_length=10000, db_index=True)
     

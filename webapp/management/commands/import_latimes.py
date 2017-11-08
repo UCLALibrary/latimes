@@ -4,7 +4,7 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 from webapp.models import Card, BoxNumb
-
+from datetime import date as DATE
 
 filepath = 'webapp/data/'
 
@@ -28,6 +28,7 @@ class Command(BaseCommand):
                             x +=1
                             pprint(row)
         print("Skipped Rows: %s"%x)
+
     def create_card(self, row):
         card = Card()
         try:
@@ -66,13 +67,12 @@ class Command(BaseCommand):
         except:
             pass
         try:
-            if row['Month'] is not '':
-                card.Month = row['Month']
+            if row['Year'] is not '':
+                card.Year = row['Year']
         except:
             pass
         try:
-            if row['Year'] is not '':
-                card.Year = row['Year']
+            card.DateCombine = DATE(int(row['Year']),int(row['Month']), int(row['Day'])) 
         except:
             pass
         try:
@@ -103,9 +103,14 @@ class Command(BaseCommand):
         try:
             if row['DATE'] is not '' and row['DATE'] != 'UNDATED':
                 date = row['DATE'].split('-')
-                card.Year = "19%s"%date[0]
-                card.Month = date[1]
-                card.Day = date[2]
+                year = int("19%s"%date[0])
+                month = int(date[1])
+                day = int(date[2])
+                card.DateCombine = DATE(year, month, day)
+                card.Year = year
+                card.Month = month
+                card.Day = day
+
             elif row['DATE'] == 'UNDATED':
                 card.Year = 8888
                 card.Month = 88

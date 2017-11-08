@@ -9,6 +9,7 @@
 {{object.Quantity}}
 {{object.Photographer}}
 {{object.Location}}
+{{object.DateCombine}}
 {% for box in object.BoxNumber.all %}
     {{ box.box }}
 {% endfor %}
