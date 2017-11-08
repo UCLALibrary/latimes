@@ -90,9 +90,12 @@ class FacetedCardAdvancedSearchForm(FacetedSearchForm):
         	sqs = sqs.filter(BoxNumber = self.data['boxnumb'])
         if self.data['year']:
             if "-" in self.data['year']:
-                year1, year2 = self.data['year'].split("-")
-                print(int(year1))
+                date1, date2 = self.data['year'].split("-")
+                month1, day1, year1 = date1.split("/")
+                month2, day2, year2 = date2.split("/")
                 sqs = sqs.filter(Year__range=[int(year1), int(year2)])
+                sqs = sqs.filter(Month__range=[int(month1), int(month2)])
+                sqs = sqs.filter(Day__range=[int(day1), int(day2)])
             else:
         	   sqs = sqs.filter(Year = self.data['year'])
         if self.Negative:
