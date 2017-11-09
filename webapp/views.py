@@ -43,7 +43,7 @@ def autocomplete(request):
 class FacetedSearchView(BaseFacetedSearchView):
 
   form_class = FacetedCardSearchForm
-  facet_fields = ['BoxNumber', 'Negative', 'Year', 'Photographer', 'Location']
+  facet_fields = ['BoxNumber', 'SubjectName', 'SubjectDescription', 'Year', 'Photographer', 'Location']
   template_name = 'search_results.html'
   paginate_by = 25
   context_object_name = 'object_list'
@@ -52,7 +52,7 @@ class FacetedSearchView(BaseFacetedSearchView):
 class FacetedAdvancedSearchView(BaseFacetedSearchView):
 
   form_class = FacetedCardAdvancedSearchForm
-  facet_fields = ['Negative', 'SubjectName', 'SubjectDescription', 'Photographer', 'Location']
+  facet_fields = ['SubjectName', 'SubjectDescription', 'Photographer', 'Location', 'BoxNumber', 'Year']
   template_name = 'adv_search_results.html'
   paginate_by = 25
   context_object_name = 'object_list'

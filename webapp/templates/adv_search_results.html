@@ -158,6 +158,61 @@
         </div><br><br>
         {% endif %}
 
+        {% if facets.fields.Year %}
+        <dt>Filter by Year</dt>
+        {% for Year in facets.fields.Year %}
+        {% if forloop.counter < 10 %}
+        <dd>
+        <input class="facet" id="{{Year.0|cut:' '}}" type="checkbox" name="Year" value="{{ Year.0 }}"
+        data-toggle="toggle" /> {{ Year.0 }} ({{ Year.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% if facets.fields.Year|length > 10 %}<a id='yearlink'>Show More ⌄</a>{% endif %}
+        <dl id='year' class='hidden'>
+        {% for Year in facets.fields.Year %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{Year.0|cut:' '}}" type="checkbox" name="Year" value="{{ Year.0 }}"
+        data-toggle="toggle" /> {{ Year.0 }} ({{ Year.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='yearlink2' class='hidden'>Hide ⌃</a>
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        {% endif %}
+
+        {% if facets.fields.BoxNumber %}
+        <dt>Filter by Box Number</dt>
+        {% for BoxNumber in facets.fields.BoxNumber %}
+        {% if forloop.counter < 10 %}
+        <dd>
+        <input class="facet" id="{{BoxNumber.0|cut:' '}}" type="checkbox" name="BoxNumber" value="{{ BoxNumber.0 }}"
+        data-toggle="toggle" /> {{ BoxNumber.0 }} ({{ BoxNumber.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        {% if facets.fields.BoxNumber|length > 10 %}<a id='boxlink'>Show More ⌄</a>{% endif %}
+        <dl id='boxnumber' class='hidden'>
+        {% for BoxNumber in facets.fields.BoxNumber %}
+        {% if forloop.counter >= 10 %}
+        <dd>
+        <input class="facet" id="{{BoxNumber.0|cut:' '}}" type="checkbox" name="BoxNumber" value="{{ BoxNumber.0 }}"
+        data-toggle="toggle" /> {{ BoxNumber.0 }} ({{ BoxNumber.1 }})
+        </dd>
+        {% endif %}
+        {% endfor %}
+        <a id='boxlink2' class='hidden'>Hide ⌃</a>
+        </dl>
+        <div>
+        <input class="btn btn-info btn-sm pull-left" type="submit" value="apply filters" onclick="return onFacetChangeApplied();" />
+        </div><br><br>
+        {% endif %}
+
+
 </div>
 {% endif %}
 	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
@@ -311,6 +366,34 @@ $(document).ready(function(){
     	$('#loclink').toggleClass("hidden");
     	$('#loclink2').toggleClass("hidden");
         $('#location').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#boxlink").click(function(){
+        $('#boxlink').toggleClass("hidden");
+        $('#boxlink2').toggleClass("hidden");
+        $('#boxnumber').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#boxlink2").click(function(){
+        $('#boxlink').toggleClass("hidden");
+        $('#boxlink2').toggleClass("hidden");
+        $('#boxnumber').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#yearlink").click(function(){
+        $('#yearlink').toggleClass("hidden");
+        $('#yearlink2').toggleClass("hidden");
+        $('#year').toggleClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("#yearlink2").click(function(){
+        $('#yearlink').toggleClass("hidden");
+        $('#yearlink2').toggleClass("hidden");
+        $('#year').toggleClass("hidden");
     });
 });
 </script>  
