@@ -229,7 +229,7 @@
             <li><a id="1" href="#" onclick="pagination(1);">1</a></li>
             {% endif %}
             {% if page_obj.number|add:"-2" >= 1  %}
-            <li><a id="1" href="#" onclick="pagination();">{{ page_obj.number|add:"-2" }}</a></li>
+            <li><a id="1" href="#" onclick="pagination({{ page_obj.number|add:"-2" }});">{{ page_obj.number|add:"-2" }}</a></li>
             {% endif %}
             {% if page_obj.number|add:"-1" >= 1  %}
             <li><a id="1" href="#" onclick='return pagination({{ page_obj.number|add:"-1" }});'>{{ page_obj.number|add:"-1" }}</a></li>
