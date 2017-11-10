@@ -1,3 +1,5 @@
 Django
 elasticsearch
 django-haystack==2.5.1
+requests
+lxml

@@ -1,7 +1,9 @@
 from django.db import models
-from django.core.validators import validate_comma_separated_integer_list
+import requests
+from lxml import html
+
 class BoxNumb(models.Model):
-	box = models.CharField(max_length=30)
+    box = models.CharField(max_length=30)
 class Card(models.Model):
     MONTHS = (
     (1, "January"),
@@ -31,14 +33,14 @@ class Card(models.Model):
     Year = models.IntegerField(db_index=True, null=True)
     #NoDate = models.CharField(null=True, max_length=10)
     PhotoDescription = models.CharField(null=True, max_length=10000, db_index=True)
-    
+
     @property
     def split_box(self):
-    	if "," in self.BoxNumber:
-    		box = self.BoxNumber.replace(" ", "")
-    		return "{}".format(self.BoxNumber.split(","))
-    	else:
-    		return "{}".format(self.BoxNumber)
+        if "," in self.BoxNumber:
+            box = self.BoxNumber.replace(" ", "")
+            return "{}".format(self.BoxNumber.split(","))
+        else:
+            return "{}".format(self.BoxNumber)
     @property
     def date(self):
         if self.Day == 88 or self.Day == 0 and self.Month == 88 and self.Year == 8888:
@@ -50,8 +52,20 @@ class Card(models.Model):
         else:
             return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
 
-   
-    		
+    @property
+    def image(self):
+        try:
+            url = "http://digital2.library.ucla.edu/Search.do?keyWord=%s&selectedProjects=26" % self.Negative
+            get_page = requests.get(url)
+            tree = html.fromstring(get_page.text)
+            div = tree.xpath('//a[@class="searchTitle"]')
+            #return div
+            for results in div:
+            	if self.SubjectDescription in str(results.text_content()) or self.SubjectName in str(results.text_content()):
+            		return 'http://digital2.library.ucla.edu/%s'%(str(results.get('href')))
+        except:
+            return "this is a test"
+            
     def __str__(self):
         return self.SubjectName
     

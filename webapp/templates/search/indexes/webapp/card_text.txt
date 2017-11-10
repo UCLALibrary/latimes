@@ -9,6 +9,7 @@
 {{object.Quantity}}
 {{object.Photographer}}
 {{object.Location}}
+{{object.image}}
 {% for box in object.BoxNumber.all %}
     {{ box.box }}
 {% endfor %}
