@@ -63,17 +63,15 @@ class Card(models.Model):
             for results in div:
                 if self.SubjectDescription in str(results.text_content()) or self.SubjectName in str(results.text_content()):
                     if self.Photographer != None:
-                        metadata = requests.get('http://digital2.library.ucla.edu/%s'%(str(results.get('href'))))
+                        metadata = requests.get('http://digital2.library.ucla.edu%s'%(str(results.get('href'))))
                         metatree = html.fromstring(metadata.text)
                         for item in metatree.xpath('//td[@class="md_term_content"]'):
                             if "Photographer" in item.text_content():
                                 photographer = item.text_content().replace("[Photographer]", "").replace("\n", "").replace(",", "").replace(" ", "").replace("\n", "").replace("\r", "")
-                                #return photographer == self.Photographer.replace(" ", "")
                                 if photographer == self.Photographer.replace(" ", ""):
-                                #if photographer == self.Photographer.replace(" ", ""):
                                     return metadata.url
                     else:
-                        return 'http://digital2.library.ucla.edu/%s'%(str(results.get('href')))
+                        return 'http://digital2.library.ucla.edu%s'%(str(results.get('href')))
         except:
             pass
             
