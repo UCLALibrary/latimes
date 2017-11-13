@@ -239,16 +239,17 @@
 		   </a>-->
             <table>
 <tr>
-<td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>
-<td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>
-<td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>
-<td style="width:185px;">Photographer:</td><td>{{result.object.Photographer}}</td></tr>
-<td style="width:185px;">Location:</td><td>{{result.object.Location}}</td></tr>
-<td style="width:185px;">Box Number:</td><td>{% for box in result.object.BoxNumber.all %}<a href="/box?box={{box.box}}">{{box.box}}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
-<td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>
-<td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>
-<td style="width:185px;">Date:</td><td><a href="/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>
-
+{% if result.object.SubjectName != None %}<td style="width:185px;">Subject Name:</td><td>{{result.object.SubjectName}}</td></tr>{% endif %}
+{% if result.object.SubjectDescription != None %}<td style="width:185px;">Subject Description:</td><td>{{result.object.SubjectDescription}}</td></tr>{% endif %}
+{% if result.object.PhotoDescription != None %}<td style="width:185px;">Photo Description:</td><td>{{result.object.PhotoDescription}}</td></tr>{% endif %}
+{% if result.object.Photographer != None %}<td style="width:185px;">Photographer:</td><td>{{result.object.Photographer}}</td></tr>{% endif %}
+{% if result.object.Location != None %}<td style="width:185px;">Location:</td><td>{{result.object.Location}}</td></tr>{% endif %}
+{% if result.object.BoxNumber != None %}<td style="width:185px;">Box Number:</td><td>{% for box in result.object.BoxNumber.all %}<a href="/box?box={{box.box}}">{{box.box}}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>{% endif %}
+{% if result.object.Quantity != None %}<td style="width:185px;">Quantity:</td><td>{{result.object.Quantity}}</td></tr>{% endif %}
+{% if result.object.Negative != None %}<td style="width:185px;">Negative Number:</td><td>{{result.object.Negative}}</td></tr>{% endif %}
+{% if result.object.date != None %}<td style="width:185px;">Date:</td><td><a href="/date?year={{result.object.Year}}&month={{result.object.Month}}&day={{result.object.Day}}">{{result.object.date}}</td></tr>{% endif %}
+{% if result.object.image != None %}<td style="width:185px;">Digital Image:</td><td><a href={{result.object.image}} target="_blank">{{result.object.image}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>{% endif %}
+</tr>
 </table><br>
 		    </div>
                     {% endfor %}
