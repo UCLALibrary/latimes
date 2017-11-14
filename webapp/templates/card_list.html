@@ -29,7 +29,7 @@
         <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Quantity'%}sortBy=-Quantity{% else %}sortBy=Quantity{% endif %}">{% if request.GET.sortBy == 'Quantity' %}Quantity&#9660;{% elif request.GET.sortBy == '-Quantity' %}Quantity&#9650;{% else %}Quantity{% endif %}</th>
         <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Negative'%}sortBy=-Negative{% else %}sortBy=Negative{% endif %}">{% if request.GET.sortBy == 'Negative' %}Negative&#9660;{% elif request.GET.sortBy == '-Negative' %}Negative&#9650;{% else %}Negative{% endif %}</th>
         <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'Date'%}sortBy=-Date{% else %}sortBy=Date{% endif %}">{% if request.GET.sortBy == 'Date' %}Date&#9660;{% elif request.GET.sortBy == '-Date' %}Date&#9650;{% else %}Date{% endif %}</th>
-            
+        <th><a href="?q={{request.GET.q}}&{% if request.GET.sortBy == 'image'%}sortBy=-image{% else %}sortBy=image{% endif %}">{% if request.GET.sortBy == 'image' %}Image&#9660;{% elif request.GET.sortBy == '-image' %}Image&#9650;{% else %}Image{% endif %}</th>   
       </tr>
 {% elif "q" not in request.GET %}
       <tr>
@@ -57,7 +57,7 @@
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
-          <td><a href='{{card.image}}'>{{card.image}}</a></td>
+          <td>{% if card.image != None %}<a href='{{card.image}}' target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>{% else %}N/A{% endif %}</td>
         </tr>
         {% endfor %}
 		{% elif results_list %}
@@ -72,7 +72,7 @@
           <td>{{card.Quantity}}</td>
           <td>{{card.Negative}}</td>
           <td><a href="/date?year={{card.Year}}&month={{card.Month}}&day={{card.Day}}">{{card.date}}</a></td>
-          <td><a href='{{card.image}}'>{{card.image}}</a></td>
+          <td>{% if card.image != None %}<a href='{{card.image}}' target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>{% else %}N/A{% endif %}</td>
           </tr>
         {% endfor %}
       {% endif %}      
