@@ -14,7 +14,7 @@ How to install
 
 4. Install requirements
   
-        $ pip install -r requirements
+        $ pip install -r requirements.txt
         
 5. Start Elasticsearch 
 
